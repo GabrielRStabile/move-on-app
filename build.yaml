@@ -1,0 +1,10 @@
+targets:
+  $default:
+    sources:
+      include:
+        - lib/domain/**
+        - lib/routing/**
+        - lib/ui/**/widgets/**_screen.dart
+      exclude:
+        - lib/**.freezed.dart
+        - lib/**.g.dart
