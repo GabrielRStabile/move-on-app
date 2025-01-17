@@ -43,6 +43,9 @@ class ExerciseProgressEntity with ExerciseProgressEntityMappable {
 
   /// Factory methods for creating ExerciseProgressEntity from JSON
   static const fromJson = ExerciseProgressEntityMapper.fromJson;
+
+  /// Returns the percentage as a formatted string
+  String get percentageString => '${completedPercentage.toStringAsFixed(0)} %';
 }
 
 /// Extension methods for creating dummy ExerciseProgressEntity instances
