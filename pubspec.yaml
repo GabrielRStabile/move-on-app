@@ -14,6 +14,7 @@ dependencies:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.17
   forui: ^0.7.0
   modal_bottom_sheet: ^3.0.0
   pull_down_button: ^0.10.2
@@ -23,9 +24,20 @@ dev_dependencies:
   auto_route_generator: ^9.0.0
   build_runner: ^2.4.13
   dart_mappable_builder: ^4.3.0
+  flutter_gen_runner: ^5.8.0
   flutter_test:
     sdk: flutter
   very_good_analysis: ^7.0.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+
+flutter_gen:
+  output: lib/ui/core
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
