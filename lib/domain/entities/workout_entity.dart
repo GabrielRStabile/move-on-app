@@ -13,7 +13,19 @@ enum ExerciseDifficulty {
   medium,
 
   /// Hard difficulty level
-  hard,
+  hard;
+
+  /// Returns the localized name of the difficulty level
+  String get name {
+    switch (this) {
+      case ExerciseDifficulty.easy:
+        return 'Iniciante';
+      case ExerciseDifficulty.medium:
+        return 'Intermediário';
+      case ExerciseDifficulty.hard:
+        return 'Avançado';
+    }
+  }
 }
 
 /// Represents a workout session with exercises and rounds
