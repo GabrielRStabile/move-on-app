@@ -5,6 +5,7 @@ targets:
         - lib/domain/**
         - lib/routing/**
         - lib/ui/**/widgets/**_screen.dart
+        - pubspec.yaml
       exclude:
         - lib/**.freezed.dart
         - lib/**.g.dart
