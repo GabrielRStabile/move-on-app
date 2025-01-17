@@ -1,6 +1,9 @@
+// ignore_for_file: invalid_use_of_internal_member
+
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:move_on_app/routing/router.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
 /// {@template move_on_app}
 /// Root widget for the MoveOn application.
@@ -25,8 +28,10 @@ class _MoveOnAppState extends State<MoveOnApp> {
   Widget build(BuildContext context) {
     final theme = FThemeData.inherit(
       colorScheme: FThemes.zinc.light.colorScheme.copyWith(
-        secondary: const Color(0xFFBBF246),
-        secondaryForeground: FThemes.zinc.light.colorScheme.primary,
+        primary: const Color(0xFFBBF246),
+        primaryForeground: FThemes.zinc.light.colorScheme.primary,
+        secondary: FThemes.zinc.light.colorScheme.primary,
+        secondaryForeground: FThemes.zinc.light.colorScheme.primaryForeground,
       ),
       style: FThemes.zinc.light.style.copyWith(
         borderRadius: BorderRadius.circular(20),
@@ -40,6 +45,31 @@ class _MoveOnAppState extends State<MoveOnApp> {
       supportedLocales: FLocalizations.supportedLocales,
       theme: ThemeData(
         scaffoldBackgroundColor: theme.scaffoldStyle.backgroundColor,
+        extensions: [
+          PullDownButtonTheme(
+            routeTheme: PullDownMenuRouteTheme(
+              backgroundColor:
+                  FThemes.zinc.light.colorScheme.primary.withValues(alpha: 0.8),
+            ),
+            itemTheme: PullDownMenuItemTheme(
+              textStyle:
+                  PullDownMenuItemTheme.defaults(context).textStyle?.copyWith(
+                        color: FThemes.zinc.light.colorScheme.primaryForeground,
+                      ),
+              destructiveColor: FThemes.zinc.dark.colorScheme.error,
+              subtitleStyle: PullDownMenuItemTheme.defaults(context)
+                  .subtitleStyle
+                  ?.copyWith(
+                    color: FThemes.zinc.light.colorScheme.primaryForeground,
+                  ),
+              iconActionTextStyle: PullDownMenuItemTheme.defaults(context)
+                  .iconActionTextStyle
+                  ?.copyWith(
+                    color: FThemes.zinc.light.colorScheme.primaryForeground,
+                  ),
+            ),
+          ),
+        ],
       ),
       builder: (context, child) {
         return FTheme(
