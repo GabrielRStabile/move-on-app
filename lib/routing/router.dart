@@ -23,13 +23,35 @@ class AppRouter extends RootStackRouter {
         CustomRoute<OnboardingRoute>(
           path: '/onboarding',
           page: OnboardingRoute.page,
-          initial: true,
           customRouteBuilder: _defaultCustomRoute,
         ),
         CustomRoute<RegisterRoute>(
           path: '/register',
           page: RegisterRoute.page,
           customRouteBuilder: _defaultCustomRoute,
+        ),
+        CustomRoute<MeRoute>(
+          path: '/me',
+          page: MeRoute.page,
+          initial: true,
+          customRouteBuilder: _defaultCustomRoute,
+          children: [
+            CustomRoute<HomeRoute>(
+              path: 'home',
+              page: HomeRoute.page,
+              customRouteBuilder: _defaultCustomRoute,
+            ),
+            CustomRoute<ExploreRoute>(
+              path: 'explore',
+              page: ExploreRoute.page,
+              customRouteBuilder: _defaultCustomRoute,
+            ),
+            CustomRoute<ProgressRoute>(
+              path: 'progress',
+              page: ProgressRoute.page,
+              customRouteBuilder: _defaultCustomRoute,
+            ),
+          ],
         ),
       ];
 
