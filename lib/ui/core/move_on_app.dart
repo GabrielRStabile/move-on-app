@@ -56,7 +56,7 @@ class _MoveOnAppState extends State<MoveOnApp> {
                   PullDownMenuItemTheme.defaults(context).textStyle?.copyWith(
                         color: FThemes.zinc.light.colorScheme.primaryForeground,
                       ),
-              destructiveColor: FThemes.zinc.dark.colorScheme.error,
+              destructiveColor: FThemes.zinc.light.colorScheme.error,
               subtitleStyle: PullDownMenuItemTheme.defaults(context)
                   .subtitleStyle
                   ?.copyWith(
