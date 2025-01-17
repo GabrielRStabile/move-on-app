@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:move_on_app/domain/entities/exercise_progress_entity.dart';
 import 'package:move_on_app/domain/entities/video_entity.dart';
 import 'package:move_on_app/domain/entities/workout_entity.dart';
 
@@ -26,6 +27,7 @@ class ExerciseEntity with ExerciseEntityMappable {
     required this.kcal,
     required this.duration,
     required this.video,
+    this.progress,
   });
 
   /// Unique identifier of the exercise
@@ -52,6 +54,9 @@ class ExerciseEntity with ExerciseEntityMappable {
   /// Video resource for the exercise
   final VideoEntity video;
 
+  /// Progress tracking for the exercise
+  final ExerciseProgressEntity? progress;
+
   /// Factory methods for creating ExerciseEntity from different sources
   static const fromMap = ExerciseEntityMapper.fromMap;
 
@@ -71,6 +76,7 @@ extension ExerciseEntityDummy on ExerciseEntity {
         kcal: 8,
         duration: const Duration(seconds: 30),
         video: VideoEntityDummy.dummy(),
+        progress: ExerciseProgressEntityDummy.dummy(),
       );
 
   /// Creates a list of dummy exercises with different variations
@@ -86,6 +92,10 @@ extension ExerciseEntityDummy on ExerciseEntity {
         kcal: 10,
         duration: const Duration(seconds: 45),
         video: VideoEntityDummy.dummy(format: VideoFormat.hls),
+        progress: ExerciseProgressEntityDummy.dummy(
+          status: ExerciseStatus.inProgress,
+          completedPercentage: 75,
+        ),
       ),
       ExerciseEntity(
         id: 'exercise-3',
@@ -96,6 +106,10 @@ extension ExerciseEntityDummy on ExerciseEntity {
         kcal: 15,
         duration: const Duration(seconds: 60),
         video: VideoEntityDummy.dummy(),
+        progress: ExerciseProgressEntityDummy.dummy(
+          status: ExerciseStatus.completed,
+          completedPercentage: 100,
+        ),
       ),
     ];
 
