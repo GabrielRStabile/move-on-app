@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
 
 /// A customizable animated bottom navigation bar widget.
@@ -215,7 +216,21 @@ class AppBottomBar extends StatelessWidget {
           ),
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(
+          duration: 800.ms,
+        )
+        .scale(
+          duration: 3000.ms,
+          begin: const Offset(1.1, 1.1),
+          curve: Curves.elasticOut,
+        )
+        .slideY(
+          duration: 3500.ms,
+          begin: -0.5,
+          curve: Curves.elasticOut,
+        );
   }
 }
 
