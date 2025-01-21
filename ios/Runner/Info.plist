@@ -45,5 +45,9 @@
 		<true />
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true />
+		<key>NSHealthShareUsageDescription</key>
+		<string>Vamos sincronizar seus treinos com o seu aplicativo Saúde para dar melhores insights</string>
+		<key>NSHealthUpdateUsageDescription</key>
+		<string>Vamos sincronizar seus treinos com o seu aplicativo Saúde para dar melhores insights</string>
 	</dict>
 </plist>
