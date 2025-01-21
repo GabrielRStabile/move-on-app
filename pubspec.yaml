@@ -8,6 +8,7 @@ environment:
   sdk: ">=3.5.4 <4.0.0"
 
 dependencies:
+  auto_injector: ^2.0.5
   auto_route: ^9.3.0+1
   cupertino_icons: ^1.0.8
   dart_mappable: ^4.3.0
@@ -18,8 +19,10 @@ dependencies:
   flutter_slidable: ^3.1.2
   flutter_svg: ^2.0.17
   forui: ^0.7.0
+  health: ^12.0.1
   permission_handler: ^11.3.1
   pull_down_button: ^0.10.2
+  result_dart: ^2.0.0
   sheet: ^1.0.0
   skeletonizer: ^1.4.3
   soft_edge_blur: ^0.1.3
