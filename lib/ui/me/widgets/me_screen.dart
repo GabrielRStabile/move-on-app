@@ -29,6 +29,7 @@ class _MeScreenState extends State<MeScreen> {
         ExploreRoute(),
         ProgressRoute(),
       ],
+      resizeToAvoidBottomInset: false,
       bottomNavigationBuilder: (context, tabsRouter) => AppBottomBar(
         selectedColorOpacity: 1,
         currentIndex: tabsRouter.activeIndex,
