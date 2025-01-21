@@ -44,6 +44,9 @@ class _MoveOnAppState extends State<MoveOnApp> {
       localizationsDelegates: FLocalizations.localizationsDelegates,
       supportedLocales: FLocalizations.supportedLocales,
       theme: ThemeData(
+        colorScheme: const ColorScheme.light(
+          secondary: Color(0xFFBBF246),
+        ),
         scaffoldBackgroundColor: theme.scaffoldStyle.backgroundColor,
         extensions: [
           PullDownButtonTheme(
