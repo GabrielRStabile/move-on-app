@@ -7,7 +7,24 @@ import 'package:move_on_app/ui/core/assets.gen.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 
 @RoutePage()
+
+/// {@template permission_asking_screen}
+/// A screen that requests user permissions for health data access.
+///
+/// This screen explains to users why the app needs certain permissions
+/// and provides a UI to request those permissions. It displays:
+/// * A main title explaining the permission request
+/// * A subtitle with additional context
+/// * Permission rows showing specific permissions needed
+/// * Action buttons to accept or decline
+///
+/// Usage:
+/// ```dart
+/// PermissionAskingRoute().push(context);
+/// ```
+/// {@endtemplate}
 class PermissionAskingScreen extends StatelessWidget {
+  /// {@macro permission_asking_screen}
   const PermissionAskingScreen({super.key});
 
   @override
