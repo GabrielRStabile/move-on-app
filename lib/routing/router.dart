@@ -21,6 +21,7 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AdaptiveRoute<OnboardingRoute>(
           path: '/onboarding',
+          initial: true,
           page: OnboardingRoute.page,
         ),
         CustomRoute<PermissionAskingRoute>(
