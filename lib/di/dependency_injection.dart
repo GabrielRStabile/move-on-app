@@ -1,4 +1,5 @@
 import 'package:auto_injector/auto_injector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:move_on_app/data/repositories/permission/permission_repository.dart';
 import 'package:move_on_app/data/repositories/permission/permission_repository_impl.dart';
 import 'package:move_on_app/data/services/health/health_service.dart';
@@ -7,7 +8,11 @@ import 'package:move_on_app/data/services/permission/permission_service.dart';
 import 'package:move_on_app/data/services/permission/permission_service_impl.dart';
 
 /// Global dependency injection instance
-DI di = DIImpl();
+DI get di => internalDi;
+
+/// Internal dependency injection instance
+@visibleForTesting
+DI internalDi = DIImpl();
 
 /// Interface for dependency injection container
 abstract interface class DI {
@@ -24,7 +29,8 @@ abstract interface class DI {
 /// Implementation of dependency injection container using AutoInjector
 class DIImpl implements DI {
   /// AutoInjector instance used for dependency management
-  final autoInjector = AutoInjector();
+  @visibleForTesting
+  AutoInjector autoInjector = AutoInjector();
 
   @override
   T get<T>({String? key}) {
@@ -35,7 +41,7 @@ class DIImpl implements DI {
   void registerAll() {
     autoInjector
       ..addSingleton<IHealthService>(HealthService.new)
-      ..addSingleton<IPermissionService>(PermissionService.new)
+      ..add<IPermissionService>(PermissionService.new)
       ..addSingleton<IPermissionRepository>(PermissionRepository.new)
       ..commit();
   }
