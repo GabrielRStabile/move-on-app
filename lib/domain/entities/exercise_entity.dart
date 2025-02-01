@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:move_on_app/domain/entities/duration_mapper.dart';
 import 'package:move_on_app/domain/entities/exercise_progress_entity.dart';
 import 'package:move_on_app/domain/entities/video_entity.dart';
 import 'package:move_on_app/domain/entities/workout_entity.dart';
@@ -6,7 +7,7 @@ import 'package:move_on_app/domain/entities/workout_entity.dart';
 part 'exercise_entity.mapper.dart';
 
 /// Represents a single exercise within a workout
-@MappableClass()
+@MappableClass(includeCustomMappers: [DurationMapper()])
 class ExerciseEntity with ExerciseEntityMappable {
   /// Creates a new exercise entity
   ///
@@ -26,7 +27,8 @@ class ExerciseEntity with ExerciseEntityMappable {
     required this.difficulty,
     required this.kcal,
     required this.duration,
-    required this.video,
+    this.imageHash,
+    this.video,
     this.progress,
   });
 
@@ -34,25 +36,33 @@ class ExerciseEntity with ExerciseEntityMappable {
   final String id;
 
   /// Name of the exercise
+  @MappableField(key: 'title')
   final String name;
 
   /// Detailed description of the exercise
   final String description;
 
   /// URL or path to the exercise image
+  @MappableField(key: 'thumb_url')
   final String image;
 
+  /// Blur Hash of the workout image
+  @MappableField(key: 'blur_hash')
+  final String? imageHash;
+
   /// Number of calories burned per execution
+  @MappableField(key: 'calories')
   final int kcal;
 
   /// Duration of the exercise
   final Duration duration;
 
   /// Difficulty level of the exercise
+  @MappableField(key: 'level')
   final ExerciseDifficulty difficulty;
 
   /// Video resource for the exercise
-  final VideoEntity video;
+  final VideoEntity? video;
 
   /// Progress tracking for the exercise
   final ExerciseProgressEntity? progress;
