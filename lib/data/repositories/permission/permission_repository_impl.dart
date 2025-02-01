@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:health/health.dart';
 import 'package:move_on_app/data/repositories/permission/permission_repository.dart';
 import 'package:move_on_app/data/services/health/health_service.dart';
@@ -25,13 +24,18 @@ class PermissionRepository implements IPermissionRepository {
   final IHealthService _healthService;
 
   /// List of health data types that the app needs access to
-  final _healthDataTypes = [HealthDataType.WEIGHT];
+  final _healthDataTypes = [
+    HealthDataType.WEIGHT,
+    HealthDataType.HEIGHT,
+    HealthDataType.GENDER,
+    HealthDataType.BIRTH_DATE,
+  ];
 
   @override
   Future<Result<bool>> requestHealthPermission() async {
     final results = <bool>[];
 
-    if (Platform.isAndroid) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
       final activityRecognitionStatus = await _permissionService
           .requestPermission(Permission.activityRecognition);
 
@@ -61,7 +65,7 @@ class PermissionRepository implements IPermissionRepository {
   Future<Result<bool>> hasHealthPermission() async {
     final results = <bool>[];
 
-    if (Platform.isAndroid) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
       final activityRecognitionStatus = await _permissionService
           .checkPermission(Permission.activityRecognition);
 
