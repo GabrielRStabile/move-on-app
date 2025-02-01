@@ -3,6 +3,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:move_on_app/data/repositories/permission/permission_repository.dart';
+import 'package:move_on_app/di/dependency_injection.dart';
 import 'package:move_on_app/ui/core/assets.gen.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 
@@ -23,9 +25,60 @@ import 'package:move_on_app/ui/core/common_text_style.dart';
 /// PermissionAskingRoute().push(context);
 /// ```
 /// {@endtemplate}
-class PermissionAskingScreen extends StatelessWidget {
+class PermissionAskingScreen extends StatefulWidget {
   /// {@macro permission_asking_screen}
   const PermissionAskingScreen({super.key});
+
+  @override
+  State<PermissionAskingScreen> createState() => _PermissionAskingScreenState();
+}
+
+class _PermissionAskingScreenState extends State<PermissionAskingScreen> {
+  final IPermissionRepository _permissionRepository = di.get();
+  late final bool _hasHealthPermission;
+  late final bool _hasNotificationPermission;
+
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPermissions();
+  }
+
+  Future<void> _checkPermissions() async {
+    final results = await Future.wait([
+      _permissionRepository.hasHealthPermission(),
+      _permissionRepository.hasNotificationPermission(),
+    ]);
+
+    setState(() {
+      _hasHealthPermission = results[0].getOrNull() ?? false;
+      _hasNotificationPermission = results[1].getOrNull() ?? false;
+      isLoading = false;
+    });
+  }
+
+  Future<void> _requestPermissions() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    if (!_hasHealthPermission) {
+      await _permissionRepository.requestHealthPermission();
+    }
+
+    if (!_hasNotificationPermission) {
+      await _permissionRepository.requestNotificationPermission();
+    }
+
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+      Navigator.of(context).pop();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +114,13 @@ class PermissionAskingScreen extends StatelessWidget {
           ),
           const Spacer(flex: 4),
           FButton(
-            onPress: () {},
+            onPress: isLoading ? null : _requestPermissions,
+            prefix: isLoading ? const FButtonSpinner() : null,
             style: FButtonStyle.secondary,
             label: const Text('Permitir'),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: isLoading ? null : Navigator.of(context).pop,
             style: TextButton.styleFrom(
               foregroundColor: FTheme.of(context).colorScheme.foreground,
               splashFactory: NoSplash.splashFactory,
