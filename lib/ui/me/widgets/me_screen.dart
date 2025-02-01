@@ -30,7 +30,7 @@ class _MeScreenState extends State<MeScreen> {
       routes: const [
         HomeRoute(),
         ExploreRoute(),
-        ProgressRoute(),
+        ActivityRoute(),
       ],
       resizeToAvoidBottomInset: false,
       bottomNavigationBuilder: (context, tabsRouter) => AppBottomBar(

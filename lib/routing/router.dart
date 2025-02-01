@@ -55,9 +55,9 @@ class AppRouter extends RootStackRouter {
               page: ExploreRoute.page,
               customRouteBuilder: _defaultCustomRoute,
             ),
-            CustomRoute<ProgressRoute>(
-              path: 'progress',
-              page: ProgressRoute.page,
+            CustomRoute<ActivityRoute>(
+              path: 'activity',
+              page: ActivityRoute.page,
               customRouteBuilder: _defaultCustomRoute,
             ),
           ],

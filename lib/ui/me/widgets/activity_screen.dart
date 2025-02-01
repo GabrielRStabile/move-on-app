@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 // TODO(GabrielRStabile): - Document this screen.
 /// {@endtemplate}
 @RoutePage()
-class ProgressScreen extends StatelessWidget {
+class ActivityScreen extends StatelessWidget {
   /// {@macro register_screen}
-  const ProgressScreen({super.key});
+  const ActivityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
