@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:move_on_app/routing/guards/permission_route_guard.dart';
 import 'package:move_on_app/routing/router.gr.dart';
 import 'package:sheet/route.dart';
 
@@ -40,6 +41,9 @@ class AppRouter extends RootStackRouter {
           page: MeRoute.page,
           initial: true,
           customRouteBuilder: _defaultCustomRoute,
+          guards: [
+            PermissionRouteGuard(),
+          ],
           children: [
             CustomRoute<HomeRoute>(
               path: 'home',
