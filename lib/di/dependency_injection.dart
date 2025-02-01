@@ -2,10 +2,15 @@ import 'package:auto_injector/auto_injector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:move_on_app/data/repositories/permission/permission_repository.dart';
 import 'package:move_on_app/data/repositories/permission/permission_repository_impl.dart';
+import 'package:move_on_app/data/repositories/workout/workout_repository.dart';
+import 'package:move_on_app/data/repositories/workout/workout_repository_impl.dart';
 import 'package:move_on_app/data/services/health/health_service.dart';
 import 'package:move_on_app/data/services/health/health_service_impl.dart';
 import 'package:move_on_app/data/services/permission/permission_service.dart';
 import 'package:move_on_app/data/services/permission/permission_service_impl.dart';
+import 'package:move_on_app/data/services/workouts/workout_client_http.dart';
+import 'package:move_on_app/ui/me/view_models/home_view_model.dart';
+import 'package:move_on_app/ui/me/view_models/search_view_model.dart';
 
 /// Global dependency injection instance
 DI get di => internalDi;
@@ -42,7 +47,11 @@ class DIImpl implements DI {
     autoInjector
       ..addSingleton<IHealthService>(HealthService.new)
       ..add<IPermissionService>(PermissionService.new)
+      ..add<WorkoutClientHttp>(WorkoutClientHttp.new)
+      ..addSingleton<WorkoutRepository>(WorkoutRepositoryImpl.new)
       ..addSingleton<IPermissionRepository>(PermissionRepository.new)
+      ..addLazySingleton<HomeViewModel>(HomeViewModel.new)
+      ..addLazySingleton<SearchViewModel>(SearchViewModel.new)
       ..commit();
   }
 }
