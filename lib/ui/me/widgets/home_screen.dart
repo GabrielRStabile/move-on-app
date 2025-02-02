@@ -13,7 +13,19 @@ import 'package:soft_edge_blur/soft_edge_blur.dart';
 import 'package:super_cupertino_navigation_bar/super_cupertino_navigation_bar.dart';
 
 /// {@template register_screen}
-// TODO(GabrielRStabile): - Document this screen.
+/// The main home screen of the application.
+///
+/// This screen displays:
+/// * A greeting message that changes based on time of day
+/// * A search bar for finding workouts
+/// * Popular exercises carousel
+/// * Today's workout tasks
+/// * Loading and error states
+///
+/// Example:
+/// ```dart
+/// HomeRoute().push(context);
+/// ```
 /// {@endtemplate}
 @RoutePage()
 class HomeScreen extends StatefulWidget {
