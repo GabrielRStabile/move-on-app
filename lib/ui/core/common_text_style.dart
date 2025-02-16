@@ -37,6 +37,12 @@ class CommonTextStyle {
   TextStyle get h3 =>
       FTheme.of(_context).typography.xl2.copyWith(fontWeight: FontWeight.w600);
 
+  /// A headline 4 text style with extra-large size and semi-bold weight.
+  ///
+  /// Uses the theme's extra-large typography with a font weight of 600
+  TextStyle get h4 =>
+      FTheme.of(_context).typography.xl.copyWith(fontWeight: FontWeight.w600);
+
   /// A large text style with semi-bold weight.
   ///
   /// Uses the theme's large typography with a font weight of 600 (semi-bold).

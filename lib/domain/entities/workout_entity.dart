@@ -7,12 +7,15 @@ part 'workout_entity.mapper.dart';
 @MappableEnum(mode: ValuesMode.named)
 enum ExerciseDifficulty {
   /// Easy difficulty level
+  @MappableValue('beginner')
   easy,
 
   /// Medium difficulty level
+  @MappableValue('intermediate')
   medium,
 
   /// Hard difficulty level
+  @MappableValue('advanced')
   hard;
 
   /// Returns the localized name of the difficulty level
@@ -24,6 +27,18 @@ enum ExerciseDifficulty {
         return 'Intermediário';
       case ExerciseDifficulty.hard:
         return 'Avançado';
+    }
+  }
+
+  /// Returns the number of rounds for the difficulty level
+  int get rounds {
+    switch (this) {
+      case ExerciseDifficulty.easy:
+        return 3;
+      case ExerciseDifficulty.medium:
+        return 4;
+      case ExerciseDifficulty.hard:
+        return 5;
     }
   }
 }
@@ -44,7 +59,7 @@ class WorkoutEntity with WorkoutEntityMappable {
     required this.name,
     required this.description,
     required this.image,
-    required this.rounds,
+    this.imageHash,
     this.exercises = const [],
   });
 
@@ -52,19 +67,26 @@ class WorkoutEntity with WorkoutEntityMappable {
   final String id;
 
   /// Name of the workout
+  @MappableField(key: 'title')
   final String name;
 
   /// Detailed description of the workout
   final String description;
 
   /// URL or path to the workout image
+  @MappableField(key: 'thumb_url')
   final String image;
 
-  /// Number of rounds to perform the exercises
-  final int rounds;
+  /// Blur Hash of the workout image
+  @MappableField(key: 'blur_hash')
+  final String? imageHash;
 
   /// List of exercises in this workout
+  @MappableField(key: 'tasks')
   final List<ExerciseEntity> exercises;
+
+  /// Number of rounds to perform the exercises
+  int get rounds => averageDifficulty.rounds;
 
   /// Calculates the total calories burned in the workout
   /// based on the exercises and number of rounds
@@ -108,7 +130,7 @@ extension WorkoutEntityDummy on WorkoutEntity {
         name: 'Full Body Workout',
         description: 'Complete body workout for beginners',
         image: 'https://picsum.photos/200/300',
-        rounds: 3,
+        imageHash: 'LGF5?xYk^6#M@-5c,1J5@[or[Q6.',
         exercises: ExerciseEntityDummy.dummyList(),
       );
 

@@ -6,8 +6,10 @@ import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/me/widgets/app_bottom_bar.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
+/// The main screen showing user-related content with bottom navigation.
 @RoutePage()
 class MeScreen extends StatefulWidget {
+  /// Creates the me screen widget.
   const MeScreen({super.key});
 
   @override
@@ -15,6 +17,7 @@ class MeScreen extends StatefulWidget {
 }
 
 class _MeScreenState extends State<MeScreen> {
+  /// Key used to position the user profile menu
   final userProfileKey = GlobalKey();
 
   @override
@@ -29,6 +32,7 @@ class _MeScreenState extends State<MeScreen> {
         ExploreRoute(),
         ProgressRoute(),
       ],
+      resizeToAvoidBottomInset: false,
       bottomNavigationBuilder: (context, tabsRouter) => AppBottomBar(
         selectedColorOpacity: 1,
         currentIndex: tabsRouter.activeIndex,

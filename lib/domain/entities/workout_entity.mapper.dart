@@ -25,11 +25,11 @@ class ExerciseDifficultyMapper extends EnumMapper<ExerciseDifficulty> {
   @override
   ExerciseDifficulty decode(dynamic value) {
     switch (value) {
-      case 'easy':
+      case 'beginner':
         return ExerciseDifficulty.easy;
-      case 'medium':
+      case 'intermediate':
         return ExerciseDifficulty.medium;
-      case 'hard':
+      case 'advanced':
         return ExerciseDifficulty.hard;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -40,19 +40,19 @@ class ExerciseDifficultyMapper extends EnumMapper<ExerciseDifficulty> {
   dynamic encode(ExerciseDifficulty self) {
     switch (self) {
       case ExerciseDifficulty.easy:
-        return 'easy';
+        return 'beginner';
       case ExerciseDifficulty.medium:
-        return 'medium';
+        return 'intermediate';
       case ExerciseDifficulty.hard:
-        return 'hard';
+        return 'advanced';
     }
   }
 }
 
 extension ExerciseDifficultyMapperExtension on ExerciseDifficulty {
-  String toValue() {
+  dynamic toValue() {
     ExerciseDifficultyMapper.ensureInitialized();
-    return MapperContainer.globals.toValue<ExerciseDifficulty>(this) as String;
+    return MapperContainer.globals.toValue<ExerciseDifficulty>(this);
   }
 }
 
@@ -74,17 +74,20 @@ class WorkoutEntityMapper extends ClassMapperBase<WorkoutEntity> {
   static String _$id(WorkoutEntity v) => v.id;
   static const Field<WorkoutEntity, String> _f$id = Field('id', _$id);
   static String _$name(WorkoutEntity v) => v.name;
-  static const Field<WorkoutEntity, String> _f$name = Field('name', _$name);
+  static const Field<WorkoutEntity, String> _f$name =
+      Field('name', _$name, key: 'title');
   static String _$description(WorkoutEntity v) => v.description;
   static const Field<WorkoutEntity, String> _f$description =
       Field('description', _$description);
   static String _$image(WorkoutEntity v) => v.image;
-  static const Field<WorkoutEntity, String> _f$image = Field('image', _$image);
-  static int _$rounds(WorkoutEntity v) => v.rounds;
-  static const Field<WorkoutEntity, int> _f$rounds = Field('rounds', _$rounds);
+  static const Field<WorkoutEntity, String> _f$image =
+      Field('image', _$image, key: 'thumb_url');
+  static String? _$imageHash(WorkoutEntity v) => v.imageHash;
+  static const Field<WorkoutEntity, String> _f$imageHash =
+      Field('imageHash', _$imageHash, key: 'blur_hash', opt: true);
   static List<ExerciseEntity> _$exercises(WorkoutEntity v) => v.exercises;
   static const Field<WorkoutEntity, List<ExerciseEntity>> _f$exercises =
-      Field('exercises', _$exercises, opt: true, def: const []);
+      Field('exercises', _$exercises, key: 'tasks', opt: true, def: const []);
 
   @override
   final MappableFields<WorkoutEntity> fields = const {
@@ -92,7 +95,7 @@ class WorkoutEntityMapper extends ClassMapperBase<WorkoutEntity> {
     #name: _f$name,
     #description: _f$description,
     #image: _f$image,
-    #rounds: _f$rounds,
+    #imageHash: _f$imageHash,
     #exercises: _f$exercises,
   };
 
@@ -102,7 +105,7 @@ class WorkoutEntityMapper extends ClassMapperBase<WorkoutEntity> {
         name: data.dec(_f$name),
         description: data.dec(_f$description),
         image: data.dec(_f$image),
-        rounds: data.dec(_f$rounds),
+        imageHash: data.dec(_f$imageHash),
         exercises: data.dec(_f$exercises));
   }
 
@@ -166,7 +169,7 @@ abstract class WorkoutEntityCopyWith<$R, $In extends WorkoutEntity, $Out>
       String? name,
       String? description,
       String? image,
-      int? rounds,
+      String? imageHash,
       List<ExerciseEntity>? exercises});
   WorkoutEntityCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -190,14 +193,14 @@ class _WorkoutEntityCopyWithImpl<$R, $Out>
           String? name,
           String? description,
           String? image,
-          int? rounds,
+          Object? imageHash = $none,
           List<ExerciseEntity>? exercises}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,
         if (description != null) #description: description,
         if (image != null) #image: image,
-        if (rounds != null) #rounds: rounds,
+        if (imageHash != $none) #imageHash: imageHash,
         if (exercises != null) #exercises: exercises
       }));
   @override
@@ -206,7 +209,7 @@ class _WorkoutEntityCopyWithImpl<$R, $Out>
       name: data.get(#name, or: $value.name),
       description: data.get(#description, or: $value.description),
       image: data.get(#image, or: $value.image),
-      rounds: data.get(#rounds, or: $value.rounds),
+      imageHash: data.get(#imageHash, or: $value.imageHash),
       exercises: data.get(#exercises, or: $value.exercises));
 
   @override

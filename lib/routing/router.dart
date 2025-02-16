@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:move_on_app/routing/guards/permission_route_guard.dart';
 import 'package:move_on_app/routing/router.gr.dart';
+import 'package:sheet/route.dart';
 
 /// A router configuration class that handles navigation in the application.
 ///
@@ -25,6 +26,11 @@ class AppRouter extends RootStackRouter {
           page: OnboardingRoute.page,
           customRouteBuilder: _defaultCustomRoute,
         ),
+        CustomRoute<PermissionAskingRoute>(
+          path: '/permission',
+          page: PermissionAskingRoute.page,
+          customRouteBuilder: _modalSheetBuilder,
+        ),
         CustomRoute<RegisterRoute>(
           path: '/register',
           page: RegisterRoute.page,
@@ -35,6 +41,9 @@ class AppRouter extends RootStackRouter {
           page: MeRoute.page,
           initial: true,
           customRouteBuilder: _defaultCustomRoute,
+          guards: [
+            PermissionRouteGuard(),
+          ],
           children: [
             CustomRoute<HomeRoute>(
               path: 'home',
@@ -60,8 +69,19 @@ class AppRouter extends RootStackRouter {
     Widget child,
     AutoRoutePage<T> page,
   ) {
-    return MaterialWithModalsPageRoute<T>(
+    return CupertinoExtendedPageRoute<T>(
       fullscreenDialog: page.fullscreenDialog,
+      settings: page,
+      builder: (context) => child,
+    );
+  }
+
+  Route<T> _modalSheetBuilder<T>(
+    BuildContext context,
+    Widget child,
+    RouteSettings page,
+  ) {
+    return CupertinoSheetRoute(
       settings: page,
       builder: (context) => child,
     );

@@ -45,5 +45,21 @@
 		<true />
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true />
+		<key>NSHealthShareUsageDescription</key>
+		<string>Vamos sincronizar seus treinos com o seu aplicativo Saúde para dar melhores insights</string>
+		<key>NSHealthUpdateUsageDescription</key>
+		<string>Vamos sincronizar seus treinos com o seu aplicativo Saúde para dar melhores insights</string>
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>remote-notification</string>
+		</array>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true />
+			<key>NSAllowsArbitraryLoadsInWebContent</key>
+			<true />
+		</dict>
 	</dict>
 </plist>
