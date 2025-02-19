@@ -32,6 +32,10 @@ class AppRouter extends RootStackRouter {
           path: '/register',
           page: RegisterRoute.page,
         ),
+        AdaptiveRoute<VideoRoute>(
+          page: VideoRoute.page,
+          path: '/video',
+        ),
         AdaptiveRoute<MeRoute>(
           path: '/me',
           page: MeRoute.page,

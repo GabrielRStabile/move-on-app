@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:move_on_app/di/dependency_injection.dart';
+import 'package:move_on_app/domain/entities/workout_entity.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 import 'package:move_on_app/ui/me/view_models/home_view_model.dart';
 import 'package:move_on_app/ui/me/view_models/search_view_model.dart';
-import 'package:move_on_app/ui/me/widgets/task_with_progress.dart';
+import 'package:move_on_app/ui/me/widgets/task_small.dart';
 import 'package:move_on_app/ui/me/widgets/today_tasks_list.dart';
 import 'package:move_on_app/ui/me/widgets/workout_carousel_content.dart';
 import 'package:soft_edge_blur/soft_edge_blur.dart';
@@ -67,8 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (_, index) {
                   final exercise = _searchViewModel.searchResults[index];
 
-                  // TODO: trocar para task without progress quando for implementado
-                  return TaskWithProgress(exercise: exercise);
+                  return TaskSmall(exercise: exercise);
                 },
               );
             },
@@ -144,7 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     TodayTasksList(
-                      exercises: _viewModel.todayWorkout?.exercises ?? [],
+                      workout:
+                          _viewModel.todayWorkout ?? WorkoutEntityDummy.dummy(),
                       isLoading: _viewModel.isLoading,
                     ),
                     const SizedBox(height: 80),

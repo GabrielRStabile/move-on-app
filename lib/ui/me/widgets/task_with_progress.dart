@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:forui/forui.dart';
 import 'package:move_on_app/domain/entities/exercise_entity.dart';
 import 'package:move_on_app/domain/entities/exercise_progress_entity.dart';
+import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -13,19 +14,18 @@ class TaskWithProgress extends StatefulWidget {
   /// Creates a task with progress widget.
   ///
   /// Requires an [exercise] entity to display its information.
-  /// Optionally accepts an [onCompleted] callback that is called when
-  /// the exercise is marked as completed.
+  /// The [onCompleted] callback is called when the task is completed.
   const TaskWithProgress({
     required this.exercise,
-    this.onCompleted,
+    required this.onCompleted,
     super.key,
   });
 
   /// The exercise entity containing the task data
   final ExerciseEntity exercise;
 
-  /// Callback function called when the exercise is completed
-  final VoidCallback? onCompleted;
+  /// The callback to be called when the task is completed
+  final VoidCallback onCompleted;
 
   @override
   State<TaskWithProgress> createState() => _TaskWithProgressState();
@@ -38,6 +38,7 @@ class _TaskWithProgressState extends State<TaskWithProgress> {
   @override
   void initState() {
     exercise = widget.exercise;
+
     super.initState();
   }
 
@@ -63,7 +64,7 @@ class _TaskWithProgressState extends State<TaskWithProgress> {
       );
     });
 
-    widget.onCompleted?.call();
+    widget.onCompleted();
   }
 
   @override
@@ -103,7 +104,9 @@ class _TaskWithProgressState extends State<TaskWithProgress> {
           CupertinoContextMenuAction(
             trailingIcon: Icons.tv,
             child: const Text('Assistir vídeo tutorial'),
-            onPressed: () {},
+            onPressed: () {
+              const VideoRoute().push(context);
+            },
           ),
         ],
         builder: (_, animation) => SizedBox(

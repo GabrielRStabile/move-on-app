@@ -2,7 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
+import 'package:move_on_app/data/services/workouts/progress_service.dart';
+import 'package:move_on_app/di/dependency_injection.dart';
 import 'package:move_on_app/domain/entities/exercise_entity.dart';
+import 'package:move_on_app/domain/entities/exercise_progress_entity.dart';
+import 'package:move_on_app/domain/entities/workout_entity.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 import 'package:move_on_app/ui/me/widgets/task_with_progress.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -19,10 +23,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 /// Example:
 /// ```dart
 /// TodayTasksList(
-///   tasks: [
-///     WorkoutTask(name: 'Squats', sets: 3, reps: 12),
-///     WorkoutTask(name: 'Push-ups', sets: 4, reps: 10),
-///   ],
+///   workout: WorkoutEntityDummy.dummy(),
 /// )
 /// ```
 class TodayTasksList extends StatefulWidget {
@@ -30,12 +31,12 @@ class TodayTasksList extends StatefulWidget {
   ///
   /// By default, shows a empty state if no tasks are provided.
   const TodayTasksList({
-    required this.exercises,
+    required this.workout,
     required this.isLoading,
     super.key,
   });
 
-  final List<ExerciseEntity> exercises;
+  final WorkoutEntity workout;
   final bool isLoading;
 
   @override
@@ -43,12 +44,17 @@ class TodayTasksList extends StatefulWidget {
 }
 
 class _TodayTasksListState extends State<TodayTasksList> {
-  List<ExerciseEntity> _exercises = [];
+  final progressService = di.get<IProgressService>();
+
+  late WorkoutEntity _workout;
   bool _isLoading = true;
+  int _currentRound = 1;
 
   @override
   void initState() {
     super.initState();
+    _workout = widget.workout;
+
     _loadExercises();
   }
 
@@ -61,11 +67,76 @@ class _TodayTasksListState extends State<TodayTasksList> {
   }
 
   Future<void> _loadExercises() async {
-    _isLoading = widget.isLoading;
+    setState(() {
+      _isLoading = widget.isLoading;
+    });
 
-    _exercises = widget.isLoading
-        ? ExerciseEntityDummy.dummyList(count: 5)
-        : widget.exercises;
+    if (_isLoading) return;
+
+    setState(() {
+      _workout = widget.workout;
+    });
+
+    final result = await progressService.getWorkout(widget.workout.id);
+
+    if (result == null) {
+      await progressService.saveWorkout(_workout);
+      return;
+    }
+
+    setState(() {
+      _workout = result;
+    });
+  }
+
+  Future<void> _onCompleteExercise(ExerciseEntity exercise) async {
+    final updatedWorkout = _workout.copyWith(
+      exercises: _workout.exercises.map((e) {
+        if (e.id == exercise.id) {
+          return exercise.copyWith(
+            progress: (exercise.progress ??
+                    ExerciseProgressEntity(
+                      lastUpdated: DateTime.now(),
+                      completedPercentage: 100,
+                      status: ExerciseStatus.completed,
+                    ))
+                .copyWith(
+              lastUpdated: DateTime.now(),
+              completedPercentage: 100,
+              status: ExerciseStatus.completed,
+            ),
+          );
+        }
+        return e;
+      }).toList(),
+    );
+
+    final allTasksCompleted = updatedWorkout.exercises.every(
+      (e) => e.progress?.status == ExerciseStatus.completed,
+    );
+
+    if (allTasksCompleted) {
+      _currentRound++;
+
+      final newWorkout = updatedWorkout.copyWith(
+        exercises: updatedWorkout.exercises
+            .map(
+              (e) => e.copyWith(
+                progress: null,
+              ),
+            )
+            .toList(),
+      );
+      await progressService.saveWorkout(newWorkout);
+      setState(() {
+        _workout = newWorkout;
+      });
+    } else {
+      await progressService.saveWorkout(updatedWorkout);
+      setState(() {
+        _workout = updatedWorkout;
+      });
+    }
   }
 
   @override
@@ -75,12 +146,18 @@ class _TodayTasksListState extends State<TodayTasksList> {
         if (_isLoading) {
           return _TasksList(
             exercises: ExerciseEntityDummy.dummyList(count: 5),
+            totalRounds: widget.workout.rounds,
+            currentRound: 1,
+            onCompleted: (_) {},
           );
-        } else if (_exercises.isEmpty) {
+        } else if (_workout.exercises.isEmpty) {
           return const _EmptyState();
         } else {
           return _TasksList(
-            exercises: _exercises,
+            exercises: _workout.exercises,
+            totalRounds: widget.workout.rounds,
+            currentRound: _currentRound,
+            onCompleted: _onCompleteExercise,
           );
         }
       },
@@ -99,9 +176,18 @@ class _TodayTasksListState extends State<TodayTasksList> {
 }
 
 class _TasksList extends StatelessWidget {
-  const _TasksList({required this.exercises});
+  const _TasksList({
+    required this.exercises,
+    required this.totalRounds,
+    required this.currentRound,
+    required this.onCompleted,
+  });
 
   final List<ExerciseEntity> exercises;
+
+  final int totalRounds;
+  final int currentRound;
+  final ValueSetter<ExerciseEntity> onCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +203,7 @@ class _TasksList extends StatelessWidget {
             ),
             Skeleton.ignore(
               child: Text(
-                '1/4 rondas concluídas',
+                '$currentRound/$totalRounds rondas concluídas',
                 style: CommonTextStyle.of(context).detail,
               ),
             ),
@@ -129,12 +215,17 @@ class _TasksList extends StatelessWidget {
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) => TaskWithProgress(
             exercise: exercises[index],
+            onCompleted: () => onCompleted(exercises[index]),
           ),
           separatorBuilder: (context, index) => const SizedBox(height: 16),
           itemCount: 4,
         ),
         FButton(
-          onPress: () {},
+          onPress: () {
+            for (final exercise in exercises) {
+              onCompleted(exercise);
+            }
+          },
           label: const Text('Completar Ronda'),
         ),
       ],

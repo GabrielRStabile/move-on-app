@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:move_on_app/domain/entities/exercise_entity.dart';
+import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 
 /// A compact widget that displays summarized exercise information.
@@ -36,45 +38,48 @@ class TaskSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(maxHeight: 86),
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(23),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.network(
-                exercise.image,
-                fit: BoxFit.cover,
+    return FTappable.animated(
+      onPress: () => const VideoRoute().push(context),
+      child: Container(
+        constraints: const BoxConstraints(maxHeight: 86),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(23),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Image.network(
+                  exercise.image,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  exercise.name,
-                  style: CommonTextStyle.of(context).large,
-                ),
-                const SizedBox(height: 6),
-                Expanded(
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Chip(label: Text('${exercise.duration.inMinutes} min')),
-                      const SizedBox(width: 5),
-                      Chip(label: Text('${exercise.kcal} cal')),
-                    ],
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    exercise.name,
+                    style: CommonTextStyle.of(context).large,
                   ),
-                ),
-              ],
+                  const SizedBox(height: 6),
+                  Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Chip(label: Text('${exercise.duration.inMinutes} min')),
+                        const SizedBox(width: 5),
+                        Chip(label: Text('${exercise.kcal} cal')),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

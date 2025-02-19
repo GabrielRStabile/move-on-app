@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:forui/forui.dart';
 import 'package:intl/intl.dart';
-import 'package:move_on_app/domain/entities/exercise_entity.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 import 'package:move_on_app/ui/me/widgets/activity_screen/activity_card.dart';
 import 'package:move_on_app/ui/me/widgets/activity_screen/activity_date_selection.dart';
 import 'package:move_on_app/ui/me/widgets/activity_screen/calories_activity_card.dart';
+import 'package:move_on_app/ui/me/widgets/activity_screen/exercises_activity_card.dart';
 import 'package:move_on_app/ui/me/widgets/activity_screen/sleep_activity_card.dart';
 import 'package:move_on_app/ui/me/widgets/activity_screen/water_activity_card.dart';
-import 'package:move_on_app/ui/me/widgets/task_small.dart';
 
 /// {@template register_screen}
 // TODO(GabrielRStabile): - Document this screen.
@@ -88,20 +87,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       StaggeredGridTile.count(
                         crossAxisCellCount: 4,
                         mainAxisCellCount: 3,
-                        child: ActivityCard(
-                          icon: FIcon(FAssets.icons.dumbbell),
-                          title: const Text('Treinos do dia'),
-                          content: ListView.builder(
-                            itemCount: 4,
-                            itemBuilder: (context, index) {
-                              // TODO: - Replace this dummy data with real data.
-                              return TaskSmall(
-                                exercise: ExerciseEntityDummy.dummy(),
-                              );
-                            },
-                          ),
-                          color: Colors.amber,
-                        ),
+                        child: ExercisesActivityCard(date: _selectedDate),
                       ),
                     ],
                   ),

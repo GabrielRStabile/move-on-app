@@ -75,19 +75,19 @@ class WorkoutEntityMapper extends ClassMapperBase<WorkoutEntity> {
   static const Field<WorkoutEntity, String> _f$id = Field('id', _$id);
   static String _$name(WorkoutEntity v) => v.name;
   static const Field<WorkoutEntity, String> _f$name =
-      Field('name', _$name, key: 'title');
+      Field('name', _$name, key: r'title');
   static String _$description(WorkoutEntity v) => v.description;
   static const Field<WorkoutEntity, String> _f$description =
       Field('description', _$description);
   static String _$image(WorkoutEntity v) => v.image;
   static const Field<WorkoutEntity, String> _f$image =
-      Field('image', _$image, key: 'thumb_url');
+      Field('image', _$image, key: r'thumb_url');
   static String? _$imageHash(WorkoutEntity v) => v.imageHash;
   static const Field<WorkoutEntity, String> _f$imageHash =
-      Field('imageHash', _$imageHash, key: 'blur_hash', opt: true);
+      Field('imageHash', _$imageHash, key: r'blur_hash', opt: true);
   static List<ExerciseEntity> _$exercises(WorkoutEntity v) => v.exercises;
   static const Field<WorkoutEntity, List<ExerciseEntity>> _f$exercises =
-      Field('exercises', _$exercises, key: 'tasks', opt: true, def: const []);
+      Field('exercises', _$exercises, key: r'tasks', opt: true, def: const []);
 
   @override
   final MappableFields<WorkoutEntity> fields = const {

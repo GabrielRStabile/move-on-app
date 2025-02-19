@@ -27,9 +27,13 @@ dependencies:
   forui: ^0.9.0
   health: ^12.0.1
   intl: ^0.19.0
+  media_kit: ^1.1.11
+  media_kit_libs_video: ^1.0.5
+  media_kit_video: ^1.2.5
   permission_handler: ^11.3.1
   pull_down_button: ^0.10.2
   result_dart: ^2.0.0
+  shared_preferences: ^2.5.2
   skeletonizer: ^1.4.3
   soft_edge_blur: ^0.1.3
   super_cupertino_navigation_bar: ^2.1.2

@@ -10,9 +10,12 @@ import 'package:move_on_app/data/services/health/health_service.dart';
 import 'package:move_on_app/data/services/health/health_service_impl.dart';
 import 'package:move_on_app/data/services/permission/permission_service.dart';
 import 'package:move_on_app/data/services/permission/permission_service_impl.dart';
+import 'package:move_on_app/data/services/workouts/progress_service.dart';
+import 'package:move_on_app/data/services/workouts/progress_service_impl.dart';
 import 'package:move_on_app/data/services/workouts/workout_client_http.dart';
 import 'package:move_on_app/ui/me/view_models/home_view_model.dart';
 import 'package:move_on_app/ui/me/view_models/search_view_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Global dependency injection instance
 DI get di => internalDi;
@@ -30,7 +33,7 @@ abstract interface class DI {
 
   /// Registers all dependencies in the container
   /// This method should be called only on app startup
-  void registerAll();
+  Future<void> registerAll();
 }
 
 /// Implementation of dependency injection container using AutoInjector
@@ -45,11 +48,15 @@ class DIImpl implements DI {
   }
 
   @override
-  void registerAll() {
+  Future<void> registerAll() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+
     autoInjector
+      ..addInstance<SharedPreferences>(sharedPreferences)
       ..addSingleton<IHealthService>(HealthService.new)
       ..add<IPermissionService>(PermissionService.new)
       ..add<WorkoutClientHttp>(WorkoutClientHttp.new)
+      ..add<IProgressService>(ProgressServiceImpl.new)
       ..addSingleton<WorkoutRepository>(WorkoutRepositoryImpl.new)
       ..addSingleton<IPermissionRepository>(PermissionRepository.new)
       ..addSingleton<HealthRepository>(HealthRepositoryImpl.new)

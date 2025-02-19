@@ -28,19 +28,19 @@ class ExerciseEntityMapper extends ClassMapperBase<ExerciseEntity> {
   static const Field<ExerciseEntity, String> _f$id = Field('id', _$id);
   static String _$name(ExerciseEntity v) => v.name;
   static const Field<ExerciseEntity, String> _f$name =
-      Field('name', _$name, key: 'title');
+      Field('name', _$name, key: r'title');
   static String _$description(ExerciseEntity v) => v.description;
   static const Field<ExerciseEntity, String> _f$description =
       Field('description', _$description);
   static String _$image(ExerciseEntity v) => v.image;
   static const Field<ExerciseEntity, String> _f$image =
-      Field('image', _$image, key: 'thumb_url');
+      Field('image', _$image, key: r'thumb_url');
   static ExerciseDifficulty _$difficulty(ExerciseEntity v) => v.difficulty;
   static const Field<ExerciseEntity, ExerciseDifficulty> _f$difficulty =
-      Field('difficulty', _$difficulty, key: 'level');
+      Field('difficulty', _$difficulty, key: r'level');
   static int _$kcal(ExerciseEntity v) => v.kcal;
   static const Field<ExerciseEntity, int> _f$kcal =
-      Field('kcal', _$kcal, key: 'calories');
+      Field('kcal', _$kcal, key: r'calories');
   static Duration _$duration(ExerciseEntity v) => v.duration;
   static const Field<ExerciseEntity, Duration> _f$duration =
       Field('duration', _$duration);
@@ -49,7 +49,7 @@ class ExerciseEntityMapper extends ClassMapperBase<ExerciseEntity> {
       Field('categories', _$categories, opt: true, def: const []);
   static String? _$imageHash(ExerciseEntity v) => v.imageHash;
   static const Field<ExerciseEntity, String> _f$imageHash =
-      Field('imageHash', _$imageHash, key: 'blur_hash', opt: true);
+      Field('imageHash', _$imageHash, key: r'blur_hash', opt: true);
   static VideoEntity? _$video(ExerciseEntity v) => v.video;
   static const Field<ExerciseEntity, VideoEntity> _f$video =
       Field('video', _$video, opt: true);
