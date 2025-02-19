@@ -116,7 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 157),
-                  child: CustomStepper(
+                  child: _CustomStepper(
                     currentStep: step,
                     maxStep: strings.length,
                     backgroundColor:
@@ -136,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         if (step < strings.length) {
                           step++;
                         }
-                        print(step);
+                 
                       });
                     },
                   ),
@@ -149,9 +149,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
-
-class CustomStepper extends StatelessWidget {
-  const CustomStepper({
+/// A custom stepper widget used to display the progress of the onboarding steps.
+class _CustomStepper extends StatelessWidget {
+  const _CustomStepper({
     required this.currentStep,
     required this.maxStep,
     this.height = 10,

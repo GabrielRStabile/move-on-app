@@ -21,7 +21,6 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AdaptiveRoute<OnboardingRoute>(
           path: '/onboarding',
-          initial: true,
           page: OnboardingRoute.page,
         ),
         CustomRoute<PermissionAskingRoute>(
@@ -31,6 +30,7 @@ class AppRouter extends RootStackRouter {
         ),
         AdaptiveRoute<RegisterRoute>(
           path: '/register',
+          initial: true,
           page: RegisterRoute.page,
         ),
         AdaptiveRoute<VideoRoute>(

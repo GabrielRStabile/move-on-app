@@ -1,0 +1,19 @@
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 21C7.1 21 8 20.1 8 19V12C8 10.9 7.1 10 6 10C4.9 10 4 10.9 4 12V19C4 20.1 4.9 21 6 21Z" fill="white"/>
+<path d="M16 16V19C16 20.1 16.9 21 18 21C19.1 21 20 20.1 20 19V16C20 14.9 19.1 14 18 14C16.9 14 16 14.9 16 16Z" fill="white"/>
+<path d="M12 21C13.1 21 14 20.1 14 19V7C14 5.9 13.1 5 12 5C10.9 5 10 5.9 10 7V19C10 20.1 10.9 21 12 21Z" fill="white"/>
+<path d="M6 21C7.1 21 8 20.1 8 19V12C8 10.9 7.1 10 6 10C4.9 10 4 10.9 4 12V19C4 20.1 4.9 21 6 21Z" stroke="black" stroke-width="1.2"/>
+<path d="M16 16V19C16 20.1 16.9 21 18 21C19.1 21 20 20.1 20 19V16C20 14.9 19.1 14 18 14C16.9 14 16 14.9 16 16Z" stroke="black" stroke-width="1.2"/>
+<path d="M12 21C13.1 21 14 20.1 14 19V7C14 5.9 13.1 5 12 5C10.9 5 10 5.9 10 7V19C10 20.1 10.9 21 12 21Z" stroke="black" stroke-width="1.2"/>
+<mask id="mask0_1104_364" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="1" width="24" height="24">
+<path d="M6 21C7.1 21 8 20.1 8 19V12C8 10.9 7.1 10 6 10C4.9 10 4 10.9 4 12V19C4 20.1 4.9 21 6 21Z" fill="white"/>
+<path d="M16 16V19C16 20.1 16.9 21 18 21C19.1 21 20 20.1 20 19V16C20 14.9 19.1 14 18 14C16.9 14 16 14.9 16 16Z" fill="white"/>
+<path d="M12 21C13.1 21 14 20.1 14 19V7C14 5.9 13.1 5 12 5C10.9 5 10 5.9 10 7V19C10 20.1 10.9 21 12 21Z" fill="white"/>
+<path d="M6 21C7.1 21 8 20.1 8 19V12C8 10.9 7.1 10 6 10C4.9 10 4 10.9 4 12V19C4 20.1 4.9 21 6 21Z" stroke="black" stroke-width="1.2"/>
+<path d="M16 16V19C16 20.1 16.9 21 18 21C19.1 21 20 20.1 20 19V16C20 14.9 19.1 14 18 14C16.9 14 16 14.9 16 16Z" stroke="black" stroke-width="1.2"/>
+<path d="M12 21C13.1 21 14 20.1 14 19V7C14 5.9 13.1 5 12 5C10.9 5 10 5.9 10 7V19C10 20.1 10.9 21 12 21Z" stroke="black" stroke-width="1.2"/>
+</mask>
+<g mask="url(#mask0_1104_364)">
+<rect y="1" width="12" height="22" fill="black"/>
+</g>
+</svg>
