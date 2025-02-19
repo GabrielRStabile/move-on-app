@@ -43,8 +43,6 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
 
   @override
   AsyncResult<Unit> updateProgress(WorkoutEntity workout) async {
-    // TODO: implement updateProgress on LocalStorage
-
     final lastWorkouts = _allWorkouts;
 
     final updatedWorkouts = lastWorkouts.map((w) {

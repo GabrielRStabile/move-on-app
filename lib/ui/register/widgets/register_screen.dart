@@ -83,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     form.height != null &&
                     form.weight != null) {
                   currentStep++;
-                  pageController.nextPage(
+                  await pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
@@ -94,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 // ignore: prefer_is_empty
                 if (currentStep == 2 && form.goal!.length > 0) {
                   currentStep++;
-                  pageController.nextPage(
+                  await pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
@@ -105,8 +105,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 if (currentStep == 3) {
                   final prefs = await SharedPreferences.getInstance();
                   await prefs.setString('current_user', form.toJson());
-                  const HomeRoute().navigate(context);
-                  return;
+
+                  if (context.mounted) {
+                    await const HomeRoute().navigate(context);
+                  }
                 }
               },
             ),

@@ -11,12 +11,42 @@ import 'package:move_on_app/ui/me/widgets/activity_screen/exercises_activity_car
 import 'package:move_on_app/ui/me/widgets/activity_screen/sleep_activity_card.dart';
 import 'package:move_on_app/ui/me/widgets/activity_screen/water_activity_card.dart';
 
-/// {@template register_screen}
-// TODO(GabrielRStabile): - Document this screen.
-/// {@endtemplate}
+/// A screen that displays the user's daily activity summary and health metrics.
+///
+/// This screen shows various health and fitness metrics in a grid layout, including:
+/// * Calories burned
+/// * Sleep tracking
+/// * Water intake
+/// * Exercise progress
+/// * Motivational cards
+///
+/// The user can select different dates to view historical data using the date selection
+/// component at the top of the screen.
+///
+/// Example usage:
+/// ```dart
+/// @RoutePage()
+/// class ActivityScreen extends StatefulWidget {
+///   const ActivityScreen({super.key});
+///   // ...
+/// }
+/// ```
+///
+/// The screen uses [StaggeredGrid] to create a visually appealing layout with cards
+/// of different sizes. Each card represents a different health metric and is implemented
+/// as a separate widget:
+/// * [CaloriesActivityCard] - Shows calories burned
+/// * [SleepActivityCard] - Displays sleep metrics
+/// * [WaterActivityCard] - Shows water intake
+/// * [ExercisesActivityCard] - Displays exercise progress
+///
+/// The screen automatically updates when:
+/// * A different date is selected using [ActivityDateSelection]
+/// * Health data is synchronized from HealthKit
+/// * User completes activities within the app
 @RoutePage()
 class ActivityScreen extends StatefulWidget {
-  /// {@macro register_screen}
+  /// Creates an activity screen that displays health and fitness metrics.
   const ActivityScreen({super.key});
 
   @override

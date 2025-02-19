@@ -10,7 +10,7 @@ class StepThree extends StatefulWidget {
   final RegisterFormDTO form;
 
   @override
-  _StepThreeState createState() => _StepThreeState();
+  State<StepThree> createState() => _StepThreeState();
 }
 
 class _StepThreeState extends State<StepThree> {
@@ -65,10 +65,7 @@ class _StepThreeState extends State<StepThree> {
                     Row(
                       spacing: 14,
                       children: [
-                        Container(
-                          // color: Colors.blue,
-                          child: SvgPicture.asset(level.icon),
-                        ),
+                        SvgPicture.asset(level.icon),
                         Text(level.friendlyName),
                       ],
                     ),

@@ -160,10 +160,8 @@ class _CustomStepper extends StatelessWidget {
     required this.currentStep,
     required this.maxStep,
     this.height = 10,
-    super.key,
     this.backgroundColor = Colors.black,
     this.stepColor = Colors.white,
-    this.duration = const Duration(milliseconds: 500),
   })  : assert(currentStep > 0, 'CurrentStep deve ser maior que 0'),
         assert(
           maxStep >= currentStep,
@@ -175,7 +173,6 @@ class _CustomStepper extends StatelessWidget {
   final Color stepColor;
   final int maxStep;
   final double height;
-  final Duration duration;
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +187,7 @@ class _CustomStepper extends StatelessWidget {
         child: Stack(
           children: [
             AnimatedSlide(
-              duration: duration,
+              duration: const Duration(milliseconds: 500),
               offset: Offset(currentStep.toDouble() - 1, 0),
               child: Container(
                 height: height - 2,

@@ -105,7 +105,7 @@ class _TaskWithProgressState extends State<TaskWithProgress> {
             trailingIcon: Icons.tv,
             child: const Text('Assistir vídeo tutorial'),
             onPressed: () {
-              const VideoRoute().push(context);
+              const VideoRoute().push<void>(context);
             },
           ),
         ],

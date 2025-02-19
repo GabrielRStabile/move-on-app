@@ -9,7 +9,7 @@ class StepTwo extends StatefulWidget {
   final RegisterFormDTO form;
 
   @override
-  _StepTwoState createState() => _StepTwoState();
+  State<StepTwo> createState() => _StepTwoState();
 }
 
 class _StepTwoState extends State<StepTwo> {
@@ -66,12 +66,9 @@ class _StepTwoState extends State<StepTwo> {
                     Row(
                       spacing: 14,
                       children: [
-                        Container(
-                          // color: Colors.blue,
-                          child: FIcon(
-                            goal.icon,
-                            size: 24,
-                          ),
+                        FIcon(
+                          goal.icon,
+                          size: 24,
                         ),
                         Text(goal.friendlyName),
                       ],

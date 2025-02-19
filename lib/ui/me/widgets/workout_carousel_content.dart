@@ -85,7 +85,7 @@ class WorkoutCarouselContent extends StatelessWidget {
               Flexible(
                 child: IconButton.filledTonal(
                   onPressed: () {
-                    const VideoRoute().push(context);
+                    const VideoRoute().push<void>(context);
                   },
                   icon: const Icon(Icons.play_arrow),
                 ),
