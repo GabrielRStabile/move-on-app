@@ -43,6 +43,7 @@ class _MoveOnAppState extends State<MoveOnApp> {
       title: 'MoveOn',
       localizationsDelegates: FLocalizations.localizationsDelegates,
       supportedLocales: FLocalizations.supportedLocales,
+      locale: const Locale('pt', 'BR'),
       theme: ThemeData(
         colorScheme: const ColorScheme.light(
           secondary: Color(0xFFBBF246),
