@@ -38,76 +38,79 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ColoredBox(
-        color: FTheme.of(context).colorScheme.background,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
-          child: Column(
-            spacing: 24,
-            children: [
-              _CustomStepper(
-                currentStep: currentStep,
-                maxStep: 3,
-                onPop: () {
-                  pageController.previousPage(
+    return ColoredBox(
+      color: FTheme.of(context).colorScheme.background,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          20,
+          MediaQuery.of(context).padding.top,
+          20,
+          MediaQuery.of(context).padding.bottom,
+        ),
+        child: Column(
+          spacing: 24,
+          children: [
+            _CustomStepper(
+              currentStep: currentStep,
+              maxStep: 3,
+              onPop: () {
+                pageController.previousPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+                currentStep--;
+                setState(() {});
+              },
+            ),
+            Expanded(
+              child: PageView(
+                controller: pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  StepOne(form: form),
+                  StepTwo(form: form),
+                  StepThree(form: form),
+                ],
+              ),
+            ),
+            FButton(
+              label: const Text('Próximo'),
+              onPress: () async {
+                if (currentStep == 1 &&
+                    form.name != null &&
+                    form.age != null &&
+                    form.gender != null &&
+                    form.height != null &&
+                    form.weight != null) {
+                  currentStep++;
+                  pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
-                  currentStep--;
                   setState(() {});
-                },
-              ),
-              Expanded(
-                child: PageView(
-                  controller: pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    StepOne(form: form),
-                    StepTwo(form: form),
-                    StepThree(form: form),
-                  ],
-                ),
-              ),
-              FButton(
-                label: const Text('Próximo'),
-                onPress: () async {
-                  if (currentStep == 1 &&
-                      form.name != null &&
-                      form.age != null &&
-                      form.gender != null &&
-                      form.height != null &&
-                      form.weight != null) {
-                    currentStep++;
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                    setState(() {});
 
-                    return;
-                  }
-                  // ignore: prefer_is_empty
-                  if (currentStep == 2 && form.goal!.length > 0) {
-                    currentStep++;
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                    setState(() {});
+                  return;
+                }
+                // ignore: prefer_is_empty
+                if (currentStep == 2 && form.goal!.length > 0) {
+                  currentStep++;
+                  pageController.nextPage(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                  setState(() {});
 
-                    return;
-                  }
-                  if (currentStep == 3) {
-                    final prefs = await SharedPreferences.getInstance();
-                    await prefs.setString('current_user', form.toJson());
-                    const HomeRoute().navigate(context);
-                    return;
-                  }
-                },
-              ),
-            ],
-          ),
+                  return;
+                }
+                if (currentStep == 3) {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.setString('current_user', form.toJson());
+                  const HomeRoute().navigate(context);
+                  return;
+                }
+              },
+            ),
+          ],
         ),
       ),
     );
