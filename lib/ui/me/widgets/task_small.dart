@@ -39,7 +39,7 @@ class TaskSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FTappable.animated(
-      onPress: () => const VideoRoute().push(context),
+      onPress: () => const VideoRoute().push<void>(context),
       child: Container(
         constraints: const BoxConstraints(maxHeight: 86),
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),

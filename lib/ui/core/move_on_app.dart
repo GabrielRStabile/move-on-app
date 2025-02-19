@@ -42,8 +42,8 @@ class _MoveOnAppState extends State<MoveOnApp> {
       routerConfig: appRouter.config(),
       title: 'MoveOn',
       localizationsDelegates: FLocalizations.localizationsDelegates,
-      supportedLocales: FLocalizations.supportedLocales,
       locale: const Locale('pt', 'BR'),
+      supportedLocales: FLocalizations.supportedLocales,
       theme: ThemeData(
         colorScheme: const ColorScheme.light(
           secondary: Color(0xFFBBF246),

@@ -25,7 +25,7 @@ import 'package:super_cupertino_navigation_bar/super_cupertino_navigation_bar.da
 ///
 /// Example:
 /// ```dart
-/// HomeRoute().push(context);
+/// HomeRoute().push<void>(context);
 /// ```
 /// {@endtemplate}
 @RoutePage()
@@ -55,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SuperScaffold(
       appBar: SuperAppBar(
+        automaticallyImplyLeading: false,
         height: 30,
         backgroundColor: fTheme.colorScheme.background,
         largeTitle: SuperLargeTitle(

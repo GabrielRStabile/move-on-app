@@ -3,6 +3,8 @@ analyzer:
     document_ignores: ignore
     avoid_catches_without_on_clauses: ignore
     lines_longer_than_80_chars: ignore
+    unused_element_parameter: ignore
+    public_member_api_docs: ignore
 include: package:very_good_analysis/analysis_options.yaml
 
 linter:

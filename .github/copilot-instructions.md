@@ -19,34 +19,40 @@
 - Theme customization through FTheme
 
 ## Testing
+
 ### Test Structure
+
 - Tests mirror the lib folder structure:
-  - `test/data/repositories/` for repository tests
-  - `test/data/services/` for service tests
-  - `test/ui/{feature}/` for widget tests
-  - `test/mocks/` for shared test mocks and fakes
+  - test/data/repositories/ for repository tests
+  - test/data/services/ for service tests
+  - test/ui/{feature}/ for widget tests
+  - test/mocks/ for shared test mocks and fakes
 
 ### Test Patterns
+
 - Use mocktail for mocking dependencies
-  - Mocks are defined in `test/mocks/mocks.dart`
-  - Fakes are defined in `test/mocks/fakes.dart`
+  - Mocks are defined in test/mocks/mocks.dart
+  - Fakes are defined in test/mocks/fakes.dart
 - Tests follow the AAA pattern (Arrange, Act, Assert)
-- Group tests logically using `group()` blocks
+- Group tests logically using group() blocks
 - Use descriptive test names that explain the scenario
 
 ### Widget Testing
-- Use `testApp()` helper from `test/app.dart` for consistent widget testing setup
-- Test UI interactions using `WidgetTester`
+
+- Use testApp() helper from test/app.dart for consistent widget testing setup
+- Test UI interactions using WidgetTester
 - Verify widget states and user interactions
 - Mock dependencies using DI configuration
 
 ### Repository Testing
+
 - Test success and failure scenarios
 - Verify integration with services
-- Use `Result` type for error handling verification
+- Use Result type for error handling verification
 - Mock platform-specific behavior when needed
 
 ### Service Testing
+
 - Test platform-specific implementations
 - Verify external service integrations (e.g., HealthKit)
 - Handle both success and error cases
@@ -60,39 +66,45 @@
 - Use proper error handling with Result type
 
 ## File Structure
+
 ### UI Layer
-- UI components in `lib/ui/` directory
-- Screen widgets in `lib/ui/{feature}/widgets/`
-- View models follow MVVM pattern in `lib/ui/{feature}/view_models/`
+
+- UI components in lib/ui/ directory
+- Screen widgets in lib/ui/{feature}/widgets/
+- View models follow MVVM pattern in lib/ui/{feature}/view_models/
 - The UI layer should only interact with repositories or view models
 - Use auto_route for navigation
 
-### Domain Layer (`lib/domain/`)
-- Entities in `lib/domain/entities/`
+### Domain Layer (lib/domain/)
+
+- Entities in lib/domain/entities/
   - Pure Dart classes representing core business objects
   - Use dart_mappable for serialization
   - Follow immutable pattern with copyWith support
 
-### Data Layer (`lib/data/`)
-- Repositories in `lib/data/repositories/{feature}/`
+### Data Layer (lib/data/)
+
+- Repositories in lib/data/repositories/{feature}/
   - Implementation of domain interfaces
   - Handle data persistence and API calls
   - Follow repository pattern with interfaces and implementations
   - The UI layer should only interact with repositories or view models
-- Services in `lib/data/services/{feature}/`
+- Services in lib/data/services/{feature}/
   - Platform-specific implementations (e.g., HealthKit)
   - External service integrations
-  - Every service should have an interface and the name of the implementation of a service should be suffixed with "_impl.dart"
+  - Every service should have an interface and the name of the implementation of a service should be suffixed with "\_impl.dart"
 
 ### Dependency Injection
-- Configuration in `lib/di/dependency_injection.dart`
+
+- Configuration in lib/di/dependency_injection.dart
 - Single source of DI using auto_injector
 
 ### Utils and Core
-- Common utilities in `lib/utils/`
-- Shared extensions in `lib/extensions/`
-- Core app configuration in `lib/core/`
-- Navigation configuration in `lib/routing/router.dart`
+
+- Common utilities in lib/utils/
+- Shared extensions in lib/extensions/
+- Core app configuration in lib/core/
+- Navigation configuration in lib/routing/router.dart
   - Use auto_route for navigation
   - Define routes and route guards
 
@@ -105,7 +117,8 @@
 - Permission handling with permission_handler
 
 ## Assets & Resources
-- Store images in `assets/` directory
+
+- Store images in assets/ directory
 - Launch screen assets in iOS specific directories
 - Follow proper asset naming conventions
 
@@ -116,8 +129,9 @@
 - Support dark/light mode through FTheme
 
 ## Documentation
+
 - Add descriptive comments for complex logic
-- Document public APIs, classes, constructors and fields always in English
+- Document public APIs and classes
 - Include usage examples for shared components
 - Write clear error messages in Portuguese
 

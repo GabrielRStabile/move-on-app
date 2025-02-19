@@ -22,7 +22,7 @@ import 'package:move_on_app/ui/core/common_text_style.dart';
 ///
 /// Usage:
 /// ```dart
-/// PermissionAskingRoute().push(context);
+/// PermissionAskingRoute().push<void>(context);
 /// ```
 /// {@endtemplate}
 class PermissionAskingScreen extends StatefulWidget {

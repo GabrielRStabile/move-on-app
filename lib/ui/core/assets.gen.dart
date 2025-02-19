@@ -15,6 +15,18 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/activeLevel-higt.svg
+  SvgGenImage get activeLevelHigt =>
+      const SvgGenImage('assets/icons/activeLevel-higt.svg');
+
+  /// File path: assets/icons/activeLevel-low.svg
+  SvgGenImage get activeLevelLow =>
+      const SvgGenImage('assets/icons/activeLevel-low.svg');
+
+  /// File path: assets/icons/activeLevel-mediun.svg
+  SvgGenImage get activeLevelMediun =>
+      const SvgGenImage('assets/icons/activeLevel-mediun.svg');
+
   /// File path: assets/icons/gender-female.svg
   SvgGenImage get genderFemale =>
       const SvgGenImage('assets/icons/gender-female.svg');
@@ -28,7 +40,14 @@ class $AssetsIconsGen {
       const SvgGenImage('assets/icons/gender-other.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [genderFemale, genderMale, genderOther];
+  List<SvgGenImage> get values => [
+    activeLevelHigt,
+    activeLevelLow,
+    activeLevelMediun,
+    genderFemale,
+    genderMale,
+    genderOther,
+  ];
 }
 
 class $AssetsImagesGen {
