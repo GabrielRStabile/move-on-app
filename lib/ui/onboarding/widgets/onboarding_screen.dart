@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/core/assets.gen.dart';
 
 /// {@template onboarding_screen}
@@ -125,20 +126,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 5,
                   ),
                 ),
-                SizedBox(
-                  width: 350,
-                  height: 56,
-                  child: FButton(
-                    style: FButtonStyle.secondary,
-                    label: Text(step != 3 ? 'Próximo' : 'Continue'),
-                    onPress: () {
-                      setState(() {
-                        if (step < strings.length) {
-                          step++;
-                        }
-                 
-                      });
-                    },
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: SizedBox(
+                    height: 56,
+                    child: FButton(
+                      style: FButtonStyle.secondary,
+                      label: Text(step != 3 ? 'Próximo' : 'Continue'),
+                      onPress: () {
+                        setState(() {
+                          if (step < strings.length) {
+                            step++;
+                          } else {
+                            const RegisterRoute().navigate(context);
+                          }
+                        });
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -149,6 +153,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
 /// A custom stepper widget used to display the progress of the onboarding steps.
 class _CustomStepper extends StatelessWidget {
   const _CustomStepper({
