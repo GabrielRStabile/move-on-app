@@ -1,5 +1,7 @@
 import 'package:auto_injector/auto_injector.dart';
 import 'package:flutter/foundation.dart';
+import 'package:move_on_app/data/repositories/health/health_repository.dart';
+import 'package:move_on_app/data/repositories/health/health_repository_impl.dart';
 import 'package:move_on_app/data/repositories/permission/permission_repository.dart';
 import 'package:move_on_app/data/repositories/permission/permission_repository_impl.dart';
 import 'package:move_on_app/data/repositories/workout/workout_repository.dart';
@@ -50,6 +52,7 @@ class DIImpl implements DI {
       ..add<WorkoutClientHttp>(WorkoutClientHttp.new)
       ..addSingleton<WorkoutRepository>(WorkoutRepositoryImpl.new)
       ..addSingleton<IPermissionRepository>(PermissionRepository.new)
+      ..addSingleton<HealthRepository>(HealthRepositoryImpl.new)
       ..addLazySingleton<HomeViewModel>(HomeViewModel.new)
       ..addLazySingleton<SearchViewModel>(SearchViewModel.new)
       ..commit();
