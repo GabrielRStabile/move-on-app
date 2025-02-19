@@ -26,9 +26,10 @@ class _StepOneState extends State<StepOne> {
   void initState() {
     super.initState();
     _form = widget.form;
-    _form..age = 20
-    ..weight = 70
-    ..height = 170;
+    _form
+      ..age = 20
+      ..weight = 70
+      ..height = 170;
   }
 
   int _calculateAge(DateTime date) {
@@ -156,11 +157,6 @@ class _StepOneState extends State<StepOne> {
                                     padding: const EdgeInsets.all(20),
                                     child: Column(
                                       children: [
-                                        const Text(
-                                          'Peso',
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                        const Divider(),
                                         Expanded(
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
@@ -189,16 +185,18 @@ class _StepOneState extends State<StepOne> {
                                             ),
                                           ),
                                         ),
-                                        ElevatedButton(
-                                          onPressed: () {
+                                        const SizedBox(height: 8),
+                                        FButton(
+                                          onPress: () {
                                             _form.weight = _weightController
                                                     .wheels.first.selectedItem +
                                                 10;
                                             setState(() {});
                                             Navigator.pop(context);
                                           },
-                                          child: const Text('Confirmar'),
+                                          label: const Text('Confirmar'),
                                         ),
+                                        const SizedBox(height: 8),
                                       ],
                                     ),
                                   ),
@@ -240,11 +238,6 @@ class _StepOneState extends State<StepOne> {
                                     padding: const EdgeInsets.all(20),
                                     child: Column(
                                       children: [
-                                        const Text(
-                                          'Altura',
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                        const Divider(),
                                         Expanded(
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
@@ -273,16 +266,18 @@ class _StepOneState extends State<StepOne> {
                                             ),
                                           ),
                                         ),
-                                        ElevatedButton(
-                                          onPressed: () {
+                                        const SizedBox(height: 8),
+                                        FButton(
+                                          onPress: () {
                                             _form.height = _heightController
                                                     .wheels.first.selectedItem +
                                                 60;
                                             setState(() {});
                                             Navigator.pop(context);
                                           },
-                                          child: const Text('Confirmar'),
+                                          label: const Text('Confirmar'),
                                         ),
+                                        const SizedBox(height: 8),
                                       ],
                                     ),
                                   ),
