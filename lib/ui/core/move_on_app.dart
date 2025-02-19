@@ -44,7 +44,6 @@ class _MoveOnAppState extends State<MoveOnApp> {
       localizationsDelegates: FLocalizations.localizationsDelegates,
       locale: const Locale('pt', 'BR'),
       supportedLocales: FLocalizations.supportedLocales,
-      locale: const Locale('pt', 'BR'),
       theme: ThemeData(
         colorScheme: const ColorScheme.light(
           secondary: Color(0xFFBBF246),
