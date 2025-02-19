@@ -17,18 +17,22 @@ class ActivityDateSelection extends StatefulWidget {
   /// Creates an activity date selection widget.
   const ActivityDateSelection({
     required this.onDateSelected,
+    this.selectedDate,
     super.key,
   });
 
   /// Called when the user selects a date.
   final ValueChanged<DateTime> onDateSelected;
 
+  /// The currently selected date.
+  final DateTime? selectedDate;
+
   @override
   State<ActivityDateSelection> createState() => _ActivityDateSelectionState();
 }
 
 class _ActivityDateSelectionState extends State<ActivityDateSelection> {
-  DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate;
 
   Future<void> onCalendarWidgetTap(BuildContext context) async {
     final renderBox = context.findRenderObject() as RenderBox?;
@@ -56,6 +60,22 @@ class _ActivityDateSelectionState extends State<ActivityDateSelection> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    selectedDate = widget.selectedDate ?? DateTime.now();
+  }
+
+  @override
+  void didUpdateWidget(ActivityDateSelection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDate != widget.selectedDate) {
+      setState(
+        () => selectedDate = widget.selectedDate ?? DateTime.now(),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,24 +83,27 @@ class _ActivityDateSelectionState extends State<ActivityDateSelection> {
         Builder(
           builder: (context) {
             return FTappable.animated(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    DateFormat('MMMM yyyy', 'pt')
-                        .format(selectedDate)
-                        .replaceFirstMapped(
-                          RegExp('^[a-z]'),
-                          (match) => match.group(0)!.toUpperCase(),
-                        ),
-                    style: CommonTextStyle.of(context).h3,
-                  ),
-                  const SizedBox(width: 10),
-                  FIcon(
-                    FAssets.icons.chevronDown,
-                    color: Colors.black,
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      DateFormat('MMMM yyyy', 'pt')
+                          .format(selectedDate)
+                          .replaceFirstMapped(
+                            RegExp('^[a-z]'),
+                            (match) => match.group(0)!.toUpperCase(),
+                          ),
+                      style: CommonTextStyle.of(context).h3,
+                    ),
+                    const SizedBox(width: 10),
+                    FIcon(
+                      FAssets.icons.chevronDown,
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
               ),
               onPress: () {
                 HapticFeedback.selectionClick();
@@ -91,11 +114,7 @@ class _ActivityDateSelectionState extends State<ActivityDateSelection> {
         ),
         const SizedBox(height: 16),
         _DayCarousel(
-          onDaySelected: (date) {
-            setState(() {
-              selectedDate = date;
-            });
-          },
+          onDaySelected: _onDaySelected,
           selectedDay: selectedDate,
         ),
       ],
@@ -107,7 +126,7 @@ class _ActivityDateSelectionState extends State<ActivityDateSelection> {
 ///
 /// Shows days of the current month up to the current day, or all days
 /// for past months.
-class _DayCarousel extends StatelessWidget {
+class _DayCarousel extends StatefulWidget {
   /// Creates a day carousel widget.
   ///
   /// * [onDaySelected] - Callback when a day is selected
@@ -117,53 +136,98 @@ class _DayCarousel extends StatelessWidget {
     required this.selectedDay,
   });
 
-  /// Called when the user selects a day.
+  /// Callback when a day is selected
   final ValueChanged<DateTime> onDaySelected;
 
-  /// The currently selected date.
+  /// The currently selected date
   final DateTime selectedDay;
 
-  /// Returns the number of days in the given month.
+  @override
+  State<_DayCarousel> createState() => _DayCarouselState();
+}
+
+class _DayCarouselState extends State<_DayCarousel> {
+  final ScrollController _scrollController = ScrollController();
+  final double _itemWidth = 60;
+  final double _itemHeight = 64;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToSelectedDay());
+  }
+
+  @override
+  void didUpdateWidget(covariant _DayCarousel oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedDay != widget.selectedDay) {
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => _scrollToSelectedDay());
+    }
+  }
+
+  void _scrollToSelectedDay() {
+    final index = widget.selectedDay.day - 1;
+    final targetOffset = index * _itemWidth;
+
+    final currentOffset = _scrollController.offset;
+    final viewportWidth = _scrollController.position.viewportDimension;
+
+    // If the selected day is already visible, don't scroll
+    if (targetOffset >= currentOffset &&
+        (targetOffset + _itemWidth) <= (currentOffset + viewportWidth)) {
+      return;
+    }
+
+    _scrollController.animateTo(
+      targetOffset / 2,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   int _getDaysInMonth(DateTime date) {
     return DateTime(date.year, date.month + 1, 0).day;
   }
 
-  /// Checks if the given date is currently selected.
   bool _isSelected(DateTime date) {
-    return date.year == selectedDay.year &&
-        date.month == selectedDay.month &&
-        date.day == selectedDay.day;
+    return date.year == widget.selectedDay.year &&
+        date.month == widget.selectedDay.month &&
+        date.day == widget.selectedDay.day;
   }
 
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final daysInMonth = _getDaysInMonth(selectedDay);
-    final firstDayOfMonth = DateTime(selectedDay.year, selectedDay.month);
-
-    final isCurrentMonth =
-        selectedDay.year == now.year && selectedDay.month == now.month;
-
+    final daysInMonth = _getDaysInMonth(widget.selectedDay);
+    final firstDayOfMonth =
+        DateTime(widget.selectedDay.year, widget.selectedDay.month);
+    final isCurrentMonth = widget.selectedDay.year == now.year &&
+        widget.selectedDay.month == now.month;
     final itemCount = isCurrentMonth ? now.day : daysInMonth;
 
     return SizedBox(
-      height: 64,
+      height: _itemHeight,
       child: ListView.builder(
+        controller: _scrollController,
         scrollDirection: Axis.horizontal,
         itemCount: itemCount,
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         itemBuilder: (context, index) {
           final currentDate = firstDayOfMonth.add(Duration(days: index));
           final isSelectedDay = _isSelected(currentDate);
-
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: GestureDetector(
-              onTap: () => onDaySelected(currentDate),
-              child: _DayWidget(
-                currentDate: currentDate,
-                isSelectedDay: isSelectedDay,
+          return SizedBox(
+            width: _itemWidth,
+            height: _itemHeight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: GestureDetector(
+                onTap: () => widget.onDaySelected(currentDate),
+                child: _DayWidget(
+                  currentDate: currentDate,
+                  isSelectedDay: isSelectedDay,
+                ),
               ),
             ),
           );
