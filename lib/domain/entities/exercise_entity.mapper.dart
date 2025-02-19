@@ -28,25 +28,28 @@ class ExerciseEntityMapper extends ClassMapperBase<ExerciseEntity> {
   static const Field<ExerciseEntity, String> _f$id = Field('id', _$id);
   static String _$name(ExerciseEntity v) => v.name;
   static const Field<ExerciseEntity, String> _f$name =
-      Field('name', _$name, key: 'title');
+      Field('name', _$name, key: r'title');
   static String _$description(ExerciseEntity v) => v.description;
   static const Field<ExerciseEntity, String> _f$description =
       Field('description', _$description);
   static String _$image(ExerciseEntity v) => v.image;
   static const Field<ExerciseEntity, String> _f$image =
-      Field('image', _$image, key: 'thumb_url');
+      Field('image', _$image, key: r'thumb_url');
   static ExerciseDifficulty _$difficulty(ExerciseEntity v) => v.difficulty;
   static const Field<ExerciseEntity, ExerciseDifficulty> _f$difficulty =
-      Field('difficulty', _$difficulty, key: 'level');
+      Field('difficulty', _$difficulty, key: r'level');
   static int _$kcal(ExerciseEntity v) => v.kcal;
   static const Field<ExerciseEntity, int> _f$kcal =
-      Field('kcal', _$kcal, key: 'calories');
+      Field('kcal', _$kcal, key: r'calories');
   static Duration _$duration(ExerciseEntity v) => v.duration;
   static const Field<ExerciseEntity, Duration> _f$duration =
       Field('duration', _$duration);
+  static List<String> _$categories(ExerciseEntity v) => v.categories;
+  static const Field<ExerciseEntity, List<String>> _f$categories =
+      Field('categories', _$categories, opt: true, def: const []);
   static String? _$imageHash(ExerciseEntity v) => v.imageHash;
   static const Field<ExerciseEntity, String> _f$imageHash =
-      Field('imageHash', _$imageHash, key: 'blur_hash', opt: true);
+      Field('imageHash', _$imageHash, key: r'blur_hash', opt: true);
   static VideoEntity? _$video(ExerciseEntity v) => v.video;
   static const Field<ExerciseEntity, VideoEntity> _f$video =
       Field('video', _$video, opt: true);
@@ -63,6 +66,7 @@ class ExerciseEntityMapper extends ClassMapperBase<ExerciseEntity> {
     #difficulty: _f$difficulty,
     #kcal: _f$kcal,
     #duration: _f$duration,
+    #categories: _f$categories,
     #imageHash: _f$imageHash,
     #video: _f$video,
     #progress: _f$progress,
@@ -77,6 +81,7 @@ class ExerciseEntityMapper extends ClassMapperBase<ExerciseEntity> {
         difficulty: data.dec(_f$difficulty),
         kcal: data.dec(_f$kcal),
         duration: data.dec(_f$duration),
+        categories: data.dec(_f$categories),
         imageHash: data.dec(_f$imageHash),
         video: data.dec(_f$video),
         progress: data.dec(_f$progress));
@@ -135,6 +140,7 @@ extension ExerciseEntityValueCopy<$R, $Out>
 
 abstract class ExerciseEntityCopyWith<$R, $In extends ExerciseEntity, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get categories;
   VideoEntityCopyWith<$R, VideoEntity, VideoEntity>? get video;
   ExerciseProgressEntityCopyWith<$R, ExerciseProgressEntity,
       ExerciseProgressEntity>? get progress;
@@ -146,6 +152,7 @@ abstract class ExerciseEntityCopyWith<$R, $In extends ExerciseEntity, $Out>
       ExerciseDifficulty? difficulty,
       int? kcal,
       Duration? duration,
+      List<String>? categories,
       String? imageHash,
       VideoEntity? video,
       ExerciseProgressEntity? progress});
@@ -161,6 +168,10 @@ class _ExerciseEntityCopyWithImpl<$R, $Out>
   @override
   late final ClassMapperBase<ExerciseEntity> $mapper =
       ExerciseEntityMapper.ensureInitialized();
+  @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get categories =>
+      ListCopyWith($value.categories, (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(categories: v));
   @override
   VideoEntityCopyWith<$R, VideoEntity, VideoEntity>? get video =>
       $value.video?.copyWith.$chain((v) => call(video: v));
@@ -178,6 +189,7 @@ class _ExerciseEntityCopyWithImpl<$R, $Out>
           ExerciseDifficulty? difficulty,
           int? kcal,
           Duration? duration,
+          List<String>? categories,
           Object? imageHash = $none,
           Object? video = $none,
           Object? progress = $none}) =>
@@ -189,6 +201,7 @@ class _ExerciseEntityCopyWithImpl<$R, $Out>
         if (difficulty != null) #difficulty: difficulty,
         if (kcal != null) #kcal: kcal,
         if (duration != null) #duration: duration,
+        if (categories != null) #categories: categories,
         if (imageHash != $none) #imageHash: imageHash,
         if (video != $none) #video: video,
         if (progress != $none) #progress: progress
@@ -202,6 +215,7 @@ class _ExerciseEntityCopyWithImpl<$R, $Out>
       difficulty: data.get(#difficulty, or: $value.difficulty),
       kcal: data.get(#kcal, or: $value.kcal),
       duration: data.get(#duration, or: $value.duration),
+      categories: data.get(#categories, or: $value.categories),
       imageHash: data.get(#imageHash, or: $value.imageHash),
       video: data.get(#video, or: $value.video),
       progress: data.get(#progress, or: $value.progress));

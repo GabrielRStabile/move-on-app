@@ -27,6 +27,7 @@ class ExerciseEntity with ExerciseEntityMappable {
     required this.difficulty,
     required this.kcal,
     required this.duration,
+    this.categories = const [],
     this.imageHash,
     this.video,
     this.progress,
@@ -49,6 +50,9 @@ class ExerciseEntity with ExerciseEntityMappable {
   /// Blur Hash of the workout image
   @MappableField(key: 'blur_hash')
   final String? imageHash;
+
+  /// Categories of the exercise
+  final List<String> categories;
 
   /// Number of calories burned per execution
   @MappableField(key: 'calories')

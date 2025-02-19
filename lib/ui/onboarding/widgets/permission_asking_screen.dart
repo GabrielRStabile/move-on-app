@@ -82,53 +82,57 @@ class _PermissionAskingScreenState extends State<PermissionAskingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          const Spacer(),
-          Text(
-            'Precisamos da sua permissão',
-            style: CommonTextStyle.of(context).h1,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Personalize ainda mais suas experiência no nosso App',
-            style: CommonTextStyle.of(context).subtitle,
-            textAlign: TextAlign.center,
-          ),
-          const Spacer(),
-          _PermissionRow(
-            icon: Assets.images.appleHealthKit.image(),
-            title: 'Todos os seus dados em um só lugar',
-            subtitle:
-                'Sincronizamos seu progresso do treino com seu app Saúde, com ele você gerencia todas as suas atividades em um só lugar',
-          ),
-          const SizedBox(height: 40),
-          _PermissionRow(
-            icon: Assets.images.notification.image(),
-            title: 'Fique sempre no controle da sua rotina',
-            subtitle:
-                'Ative as notificações para receber lembretes de treinos e dicas motivadoras.',
-          ),
-          const Spacer(flex: 4),
-          FButton(
-            onPress: isLoading ? null : _requestPermissions,
-            prefix: isLoading ? const FButtonSpinner() : null,
-            style: FButtonStyle.secondary,
-            label: const Text('Permitir'),
-          ),
-          TextButton(
-            onPressed: isLoading ? null : Navigator.of(context).pop,
-            style: TextButton.styleFrom(
-              foregroundColor: FTheme.of(context).colorScheme.foreground,
-              splashFactory: NoSplash.splashFactory,
-              overlayColor: Colors.transparent,
+    return ColoredBox(
+      color: FTheme.of(context).colorScheme.background,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const Spacer(),
+            Text(
+              'Precisamos da sua permissão',
+              style: CommonTextStyle.of(context).h1,
+              textAlign: TextAlign.center,
             ),
-            child: const Text('Me lembre mais tarde'),
-          ),
-        ],
+            const SizedBox(height: 8),
+            Text(
+              'Personalize ainda mais suas experiência no nosso App',
+              style: CommonTextStyle.of(context).subtitle,
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(),
+            _PermissionRow(
+              icon: Assets.images.appleHealthKit.image(),
+              title: 'Todos os seus dados em um só lugar',
+              subtitle:
+                  'Sincronizamos seu progresso do treino com seu app Saúde, com ele você gerencia todas as suas atividades em um só lugar',
+            ),
+            const SizedBox(height: 40),
+            _PermissionRow(
+              icon: Assets.images.notification.image(),
+              title: 'Fique sempre no controle da sua rotina',
+              subtitle:
+                  'Ative as notificações para receber lembretes de treinos e dicas motivadoras.',
+            ),
+            const Spacer(flex: 4),
+            FButton(
+              onPress: isLoading ? null : _requestPermissions,
+              prefix: isLoading ? const FButtonSpinner() : null,
+              style: FButtonStyle.secondary,
+              label: const Text('Permitir'),
+            ),
+            TextButton(
+              onPressed: isLoading ? null : Navigator.of(context).pop,
+              style: TextButton.styleFrom(
+                foregroundColor: FTheme.of(context).colorScheme.foreground,
+                splashFactory: NoSplash.splashFactory,
+                overlayColor: Colors.transparent,
+              ),
+              child: const Text('Me lembre mais tarde'),
+            ),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }

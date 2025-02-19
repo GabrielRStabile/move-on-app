@@ -29,6 +29,9 @@ class PermissionRepository implements IPermissionRepository {
     HealthDataType.HEIGHT,
     HealthDataType.GENDER,
     HealthDataType.BIRTH_DATE,
+    HealthDataType.WATER,
+    HealthDataType.ACTIVE_ENERGY_BURNED,
+    HealthDataType.SLEEP_ASLEEP,
   ];
 
   @override
@@ -49,7 +52,10 @@ class PermissionRepository implements IPermissionRepository {
 
     final healthStatus = await _healthService.requestAuthorization(
       _healthDataTypes,
-      permissions: [HealthDataAccess.READ_WRITE],
+      permissions: List.generate(
+        _healthDataTypes.length,
+        (_) => HealthDataAccess.READ_WRITE,
+      ),
     );
 
     results.add(
@@ -79,7 +85,10 @@ class PermissionRepository implements IPermissionRepository {
 
     final healthStatus = await _healthService.hasAuthorization(
       _healthDataTypes,
-      permissions: [HealthDataAccess.READ_WRITE],
+      permissions: List.generate(
+        _healthDataTypes.length,
+        (_) => HealthDataAccess.READ_WRITE,
+      ),
     );
 
     results.add(

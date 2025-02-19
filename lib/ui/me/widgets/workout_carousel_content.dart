@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:move_on_app/domain/entities/workout_entity.dart';
+import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 
 /// A widget that displays workout information in a carousel format
@@ -84,7 +85,7 @@ class WorkoutCarouselContent extends StatelessWidget {
               Flexible(
                 child: IconButton.filledTonal(
                   onPressed: () {
-                    //TODO: Navigate to workout screen
+                    const VideoRoute().push(context);
                   },
                   icon: const Icon(Icons.play_arrow),
                 ),

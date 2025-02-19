@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:move_on_app/routing/guards/permission_route_guard.dart';
 import 'package:move_on_app/routing/router.gr.dart';
-import 'package:sheet/route.dart';
 
 /// A router configuration class that handles navigation in the application.
 ///
@@ -21,60 +19,46 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        CustomRoute<OnboardingRoute>(
+        AdaptiveRoute<OnboardingRoute>(
           path: '/onboarding',
           page: OnboardingRoute.page,
-          customRouteBuilder: _defaultCustomRoute,
         ),
         CustomRoute<PermissionAskingRoute>(
           path: '/permission',
           page: PermissionAskingRoute.page,
           customRouteBuilder: _modalSheetBuilder,
         ),
-        CustomRoute<RegisterRoute>(
+        AdaptiveRoute<RegisterRoute>(
           path: '/register',
           page: RegisterRoute.page,
-          customRouteBuilder: _defaultCustomRoute,
         ),
-        CustomRoute<MeRoute>(
+        AdaptiveRoute<VideoRoute>(
+          page: VideoRoute.page,
+          path: '/video',
+        ),
+        AdaptiveRoute<MeRoute>(
           path: '/me',
           page: MeRoute.page,
           initial: true,
-          customRouteBuilder: _defaultCustomRoute,
           guards: [
             PermissionRouteGuard(),
           ],
           children: [
-            CustomRoute<HomeRoute>(
+            AdaptiveRoute<HomeRoute>(
               path: 'home',
               page: HomeRoute.page,
-              customRouteBuilder: _defaultCustomRoute,
             ),
-            CustomRoute<ExploreRoute>(
+            AdaptiveRoute<ExploreRoute>(
               path: 'explore',
               page: ExploreRoute.page,
-              customRouteBuilder: _defaultCustomRoute,
             ),
-            CustomRoute<ProgressRoute>(
-              path: 'progress',
-              page: ProgressRoute.page,
-              customRouteBuilder: _defaultCustomRoute,
+            AdaptiveRoute<ActivityRoute>(
+              path: 'activity',
+              page: ActivityRoute.page,
             ),
           ],
         ),
       ];
-
-  Route<T> _defaultCustomRoute<T>(
-    BuildContext context,
-    Widget child,
-    AutoRoutePage<T> page,
-  ) {
-    return CupertinoExtendedPageRoute<T>(
-      fullscreenDialog: page.fullscreenDialog,
-      settings: page,
-      builder: (context) => child,
-    );
-  }
 
   Route<T> _modalSheetBuilder<T>(
     BuildContext context,

@@ -29,15 +29,15 @@ class _MeScreenState extends State<MeScreen> {
       backgroundColor: fTheme.colorScheme.background,
       routes: const [
         HomeRoute(),
-        ExploreRoute(),
-        ProgressRoute(),
+        // ExploreRoute(),
+        ActivityRoute(),
       ],
       resizeToAvoidBottomInset: false,
       bottomNavigationBuilder: (context, tabsRouter) => AppBottomBar(
         selectedColorOpacity: 1,
         currentIndex: tabsRouter.activeIndex,
         onTap: (index) {
-          if (index == 3) {
+          if (index == 2) {
             final renderBox =
                 userProfileKey.currentContext!.findRenderObject()! as RenderBox;
             final position = renderBox.localToGlobal(Offset.zero);
@@ -80,10 +80,10 @@ class _MeScreenState extends State<MeScreen> {
             icon: FIcon(FAssets.icons.house),
             title: const Text('Início'),
           ),
-          AppBottomBarItem(
-            icon: FIcon(FAssets.icons.rocket),
-            title: const Text('Explorar'),
-          ),
+          // AppBottomBarItem(
+          //   icon: FIcon(FAssets.icons.rocket),
+          //   title: const Text('Explorar'),
+          // ),
           AppBottomBarItem(
             icon: FIcon(FAssets.icons.gauge),
             title: const Text('Progresso'),
