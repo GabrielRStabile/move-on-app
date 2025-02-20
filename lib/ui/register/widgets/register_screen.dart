@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:move_on_app/domain/dtos/regiter_form_dto.dart';
+import 'package:move_on_app/domain/dtos/register_form_dto.dart';
 import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/register/widgets/step_one.dart';
 import 'package:move_on_app/ui/register/widgets/step_three.dart';

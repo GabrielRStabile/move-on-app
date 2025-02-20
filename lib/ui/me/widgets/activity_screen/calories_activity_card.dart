@@ -59,9 +59,9 @@ class _CaloriesActivityCardState extends State<CaloriesActivityCard> {
   @override
   Widget build(BuildContext context) {
     return ActivityCard(
-      title: const Text('Calorias Ativas'),
+      title: const Text('Calorias'),
       icon: FIcon(FAssets.icons.flame),
-      content: Text('$_calories Calorias'),
+      content: Text('$_calories Caloria(s) queimada(s)'),
       color: Colors.red,
     );
   }

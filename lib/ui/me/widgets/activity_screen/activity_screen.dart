@@ -91,12 +91,12 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     children: [
                       StaggeredGridTile.count(
                         crossAxisCellCount: 2,
-                        mainAxisCellCount: 1,
+                        mainAxisCellCount: 2,
                         child: CaloriesActivityCard(date: _selectedDate),
                       ),
                       StaggeredGridTile.count(
                         crossAxisCellCount: 2,
-                        mainAxisCellCount: 1,
+                        mainAxisCellCount: 2,
                         child: SleepActivityCard(date: _selectedDate),
                       ),
                       StaggeredGridTile.count(
@@ -104,8 +104,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                         mainAxisCellCount: 2,
                         child: ActivityCard(
                           icon: FIcon(FAssets.icons.trophy),
-                          content:
-                              const Text('Continue dando o seu melhor! 💪'),
+                          content: const Text('Dê o seu melhor! 💪'),
                           color: FTheme.of(context).colorScheme.primary,
                         ),
                       ),

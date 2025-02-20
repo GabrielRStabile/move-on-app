@@ -110,7 +110,7 @@ class _TaskWithProgressState extends State<TaskWithProgress> {
           ),
         ],
         builder: (_, animation) => SizedBox(
-          height: 120,
+          height: 135,
           width: animation.isCompleted
               ? MediaQuery.sizeOf(context).width * 0.9
               : null,

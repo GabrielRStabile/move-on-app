@@ -2,7 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:forui/forui.dart';
 import 'package:move_on_app/ui/core/assets.gen.dart';
 
-part 'regiter_form_dto.mapper.dart';
+part 'register_form_dto.mapper.dart';
 
 @MappableEnum()
 enum Gender {
@@ -97,4 +97,10 @@ class RegisterFormDTO with RegisterFormDTOMappable {
   int? height;
   List<Goal>? goal;
   ActiveLevel? activeLevel;
+
+  /// Factory methods for creating RegisterFormDTO from different sources
+  static const fromMap = RegisterFormDTOMapper.fromMap;
+
+  /// Factory methods for creating RegisterFormDTO from JSON
+  static const fromJson = RegisterFormDTOMapper.fromJson;
 }

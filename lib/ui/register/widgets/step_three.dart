@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:forui/forui.dart';
-import 'package:move_on_app/domain/dtos/regiter_form_dto.dart';
+import 'package:move_on_app/domain/dtos/register_form_dto.dart';
 import 'package:move_on_app/ui/core/common_text_style.dart';
 
 class StepThree extends StatefulWidget {
