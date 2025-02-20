@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:move_on_app/data/services/user/user_service.dart';
+import 'package:move_on_app/di/dependency_injection.dart';
+import 'package:move_on_app/domain/dtos/register_form_dto.dart';
 import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/me/widgets/app_bottom_bar.dart';
 import 'package:pull_down_button/pull_down_button.dart';
@@ -19,6 +22,16 @@ class MeScreen extends StatefulWidget {
 class _MeScreenState extends State<MeScreen> {
   /// Key used to position the user profile menu
   final userProfileKey = GlobalKey();
+  final userService = di.get<IUserService>();
+
+  late RegisterFormDTO? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    userService.currentUser
+        .then((value) => setState(() => _currentUser = value));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +59,13 @@ class _MeScreenState extends State<MeScreen> {
               context: context,
               items: [
                 PullDownMenuHeader(
-                  leading: const ColoredBox(color: Colors.red),
-                  title: 'Gabriel Stabile',
-                  subtitle: '3 dias treinando 🚀',
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      'https://i.pravatar.cc/150?u=${_currentUser?.name}',
+                    ),
+                  ),
+                  title: _currentUser?.name ?? '',
+                  subtitle: '1 dia(s) treinando 🚀',
                   onTap: () {},
                 ),
                 const PullDownMenuDivider.large(),

@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:move_on_app/data/services/user/user_service.dart';
+import 'package:move_on_app/di/dependency_injection.dart';
 import 'package:move_on_app/domain/dtos/register_form_dto.dart';
 import 'package:move_on_app/routing/router.gr.dart';
 import 'package:move_on_app/ui/register/widgets/step_one.dart';
 import 'package:move_on_app/ui/register/widgets/step_three.dart';
 import 'package:move_on_app/ui/register/widgets/step_two.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template register_screen}
 /// A screen that handles user registration functionality.
@@ -32,6 +33,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final userService = di.get<IUserService>();
+
   int currentStep = 1;
   RegisterFormDTO form = RegisterFormDTO();
   PageController pageController = PageController();
@@ -103,8 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return;
                 }
                 if (currentStep == 3) {
-                  final prefs = await SharedPreferences.getInstance();
-                  await prefs.setString('current_user', form.toJson());
+                  await userService.register(form);
 
                   if (context.mounted) {
                     await const HomeRoute().navigate(context);

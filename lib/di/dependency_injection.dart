@@ -10,6 +10,8 @@ import 'package:move_on_app/data/services/health/health_service.dart';
 import 'package:move_on_app/data/services/health/health_service_impl.dart';
 import 'package:move_on_app/data/services/permission/permission_service.dart';
 import 'package:move_on_app/data/services/permission/permission_service_impl.dart';
+import 'package:move_on_app/data/services/user/user_service.dart';
+import 'package:move_on_app/data/services/user/user_service_impl.dart';
 import 'package:move_on_app/data/services/workouts/progress_service.dart';
 import 'package:move_on_app/data/services/workouts/progress_service_impl.dart';
 import 'package:move_on_app/data/services/workouts/workout_client_http.dart';
@@ -57,6 +59,7 @@ class DIImpl implements DI {
       ..add<IPermissionService>(PermissionService.new)
       ..add<WorkoutClientHttp>(WorkoutClientHttp.new)
       ..add<IProgressService>(ProgressServiceImpl.new)
+      ..add<IUserService>(UserServiceImpl.new)
       ..addSingleton<WorkoutRepository>(WorkoutRepositoryImpl.new)
       ..addSingleton<IPermissionRepository>(PermissionRepository.new)
       ..addSingleton<HealthRepository>(HealthRepositoryImpl.new)

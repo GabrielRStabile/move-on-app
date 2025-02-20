@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:move_on_app/routing/guards/auth_route_guard.dart';
 import 'package:move_on_app/routing/guards/permission_route_guard.dart';
 import 'package:move_on_app/routing/router.gr.dart';
 
@@ -23,6 +24,9 @@ class AppRouter extends RootStackRouter {
           path: '/onboarding',
           page: OnboardingRoute.page,
           initial: true,
+          guards: [
+            AuthRouteGuard(),
+          ],
         ),
         CustomRoute<PermissionAskingRoute>(
           path: '/permission',

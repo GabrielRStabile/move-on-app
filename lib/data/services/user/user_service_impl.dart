@@ -20,14 +20,14 @@ class UserServiceImpl implements IUserService {
   }
 
   @override
-  Future<bool> isLogged() {
-    // TODO: implement isLogged
-    throw UnimplementedError();
+  Future<bool> isLogged() async {
+    final user = await currentUser;
+
+    return user != null;
   }
 
   @override
-  Future<void> register(RegisterFormDTO form) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<void> register(RegisterFormDTO form) async {
+    await _prefs.setString(storageKey, form.toJson());
   }
 }
